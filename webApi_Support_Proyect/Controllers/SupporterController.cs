@@ -19,12 +19,13 @@ namespace webApi_Support_Proyect.Controllers
             {
                 ctx.Supporter.Add(new Supporter()
                 {
-                    Id = supp.Id_Supporter,
-                    Id_Supervisor = supp.Id_Supervisor,
+                    //Id = supp.Id_Supporter,
+                    Id_Supervisor = 1,
                     Pass = supp.Pass,
                     Name = supp.Name,
                     First_Surname= supp.First_SurName,
-                    Second_Surname = supp.Second_Surname
+                    Second_Surname = supp.Second_Surname,
+                    Email=supp.Email
                 });
                 ctx.SaveChanges();
             }
@@ -41,7 +42,7 @@ namespace webApi_Support_Proyect.Controllers
                     .Select(suppItem => new SupporterModel()
                     {
                         Id_Supervisor= suppItem.Id_Supervisor,
-                        Id_Supporter = suppItem.Id_Supervisor,
+                        Id_Supporter = suppItem.Id,
                         Name = suppItem.Name,
                         First_SurName = suppItem.First_Surname,
                         Second_Surname = suppItem.Second_Surname,
