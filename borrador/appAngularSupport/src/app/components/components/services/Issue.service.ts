@@ -9,7 +9,7 @@ import { Issue } from '../models/Issue';
 })
 export class IssueService {
     private baseUrl = 'http://localhost:50044/api/issue/';
-    private urlClient = '';
+
     constructor(private http: HttpClient) { }
 
     getIssue(id: number): Observable<any> {
@@ -17,8 +17,8 @@ export class IssueService {
         return this.http.get(`${this.baseUrl}${id}`);
     }
 
-    createIssue(issue: Issue): Observable<any> {
-        return this.http.post(`${this.baseUrl}`, issue);
+    createDriver(driver: Issue): Observable<any> {
+        return this.http.post(`${this.baseUrl}`, driver);
     }
 
     updateDriver(id: number, value: Issue): Observable<any> {

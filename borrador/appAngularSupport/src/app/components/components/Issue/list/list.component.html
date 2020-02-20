@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Lista de Casos</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Numero de reporte</th>
+                    <th>Id_Support</th>
+                    <th>Clasificación</th>
+                    <th>Status</th>
+                    <th>Comentarios</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let issue of issues | async">
+                    <td>{{issue.Report_Number}}</td>
+                    <td>{{issue.Id_support}}</td>
+                    <td>{{issue.Classification}}</td>
+                    <td>{{issue.Status}}</td>
+                    <td>{{issue.Resolution_Comment}}</td>
+                    <td>
+                        <button (click)="driverDetails(driver.id)" class="btn btn-info">
+                            <i class="fas fa-info-circle"></i>
+
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <button (click)="reloadData()" class="btn btn-info" style="margin-left: 10px"><i
+                class="fas fa-sync"></i></button>
+
+    </div>
+</div>
