@@ -1,9 +1,0 @@
-namespace webApi_Support_Proyect.Areas.HelpPage.ModelDescriptions
-{
-    public class KeyValuePairModelDescription : ModelDescription
-    {
-        public ModelDescription KeyModelDescription { get; set; }
-
-        public ModelDescription ValueModelDescription { get; set; }
-    }
-}

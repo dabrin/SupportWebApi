@@ -348,3 +348,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+webApi_Support_Proyect/Web.config
+
+webApi_Support_Proyect/webApi_Support_Proyect.csproj
+
+webApi_Support_Proyect/
