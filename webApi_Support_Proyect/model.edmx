@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AppSupport_ProyectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="Report_Number" />
+          </Key>
+          <Property Name="Report_Number" Type="int" Nullable="false" />
+          <Property Name="Id_Supporter" Type="int" />
+          <Property Name="Classification" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Report_Time" Type="datetime" Nullable="false" />
+          <Property Name="Resolution_Comment" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Report_Number_Issue" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Report_Number_Issue" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Note_Time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supervisor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pass" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="First_Surname" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Second_Surname" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supporter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Supervisor" Type="int" Nullable="false" />
+          <Property Name="Pass" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="First_Surname" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Second_Surname" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supporter_Service">
+          <Key>
+            <PropertyRef Name="Id_Supporter" />
+            <PropertyRef Name="Id_Service" />
+          </Key>
+          <Property Name="Id_Supporter" Type="int" Nullable="false" />
+          <Property Name="Id_Service" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Issue__Id_Suppor__6EF57B66">
+          <End Role="Supporter" Type="Self.Supporter" Multiplicity="0..1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supporter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="Id_Supporter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Note__Report_Num__72C60C4A">
+          <End Role="Issue" Type="Self.Issue" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="Report_Number" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="Report_Number_Issue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Supporter__Id_Se__787EE5A0">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="Supporter_Service" Type="Self.Supporter_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supporter_Service">
+              <PropertyRef Name="Id_Service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Supporter__Id_Su__68487DD7">
+          <End Role="Supervisor" Type="Self.Supervisor" Multiplicity="1" />
+          <End Role="Supporter" Type="Self.Supporter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supervisor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supporter">
+              <PropertyRef Name="Id_Supervisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Supporter__Id_Su__778AC167">
+          <End Role="Supporter" Type="Self.Supporter" Multiplicity="1" />
+          <End Role="Supporter_Service" Type="Self.Supporter_Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supporter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supporter_Service">
+              <PropertyRef Name="Id_Supporter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AppSupport_ProyectModelStoreContainer">
+          <EntitySet Name="Issue" EntityType="Self.Issue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supervisor" EntityType="Self.Supervisor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supporter" EntityType="Self.Supporter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supporter_Service" EntityType="Self.Supporter_Service" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Issue__Id_Suppor__6EF57B66" Association="Self.FK__Issue__Id_Suppor__6EF57B66">
+            <End Role="Supporter" EntitySet="Supporter" />
+            <End Role="Issue" EntitySet="Issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Note__Report_Num__72C60C4A" Association="Self.FK__Note__Report_Num__72C60C4A">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="Note" EntitySet="Note" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Supporter__Id_Se__787EE5A0" Association="Self.FK__Supporter__Id_Se__787EE5A0">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Supporter_Service" EntitySet="Supporter_Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Supporter__Id_Su__68487DD7" Association="Self.FK__Supporter__Id_Su__68487DD7">
+            <End Role="Supervisor" EntitySet="Supervisor" />
+            <End Role="Supporter" EntitySet="Supporter" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Supporter__Id_Su__778AC167" Association="Self.FK__Supporter__Id_Su__778AC167">
+            <End Role="Supporter" EntitySet="Supporter" />
+            <End Role="Supporter_Service" EntitySet="Supporter_Service" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppSupport_ProyectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="Report_Number" />
+          </Key>
+          <Property Name="Report_Number" Type="Int32" Nullable="false" />
+          <Property Name="Id_Supporter" Type="Int32" />
+          <Property Name="Classification" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Report_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Resolution_Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Supporter" Relationship="Self.FK__Issue__Id_Suppor__6EF57B66" FromRole="Issue" ToRole="Supporter" />
+          <NavigationProperty Name="Note" Relationship="Self.FK__Note__Report_Num__72C60C4A" FromRole="Issue" ToRole="Note" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Report_Number_Issue" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Report_Number_Issue" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Note_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Issue" Relationship="Self.FK__Note__Report_Num__72C60C4A" FromRole="Note" ToRole="Issue" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Supporter" Relationship="Self.Supporter_Service" FromRole="Service" ToRole="Supporter" />
+        </EntityType>
+        <EntityType Name="Supervisor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="First_Surname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Second_Surname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Supporter" Relationship="Self.FK__Supporter__Id_Su__68487DD7" FromRole="Supervisor" ToRole="Supporter" />
+        </EntityType>
+        <EntityType Name="Supporter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Supervisor" Type="Int32" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="First_Surname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Second_Surname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Issue" Relationship="Self.FK__Issue__Id_Suppor__6EF57B66" FromRole="Supporter" ToRole="Issue" />
+          <NavigationProperty Name="Supervisor" Relationship="Self.FK__Supporter__Id_Su__68487DD7" FromRole="Supporter" ToRole="Supervisor" />
+          <NavigationProperty Name="Service" Relationship="Self.Supporter_Service" FromRole="Supporter" ToRole="Service" />
+        </EntityType>
+        <Association Name="FK__Issue__Id_Suppor__6EF57B66">
+          <End Role="Supporter" Type="Self.Supporter" Multiplicity="0..1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supporter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="Id_Supporter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Note__Report_Num__72C60C4A">
+          <End Role="Issue" Type="Self.Issue" Multiplicity="1" />
+          <End Role="Note" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="Report_Number" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="Report_Number_Issue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Supporter__Id_Su__68487DD7">
+          <End Role="Supervisor" Type="Self.Supervisor" Multiplicity="1" />
+          <End Role="Supporter" Type="Self.Supporter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supervisor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supporter">
+              <PropertyRef Name="Id_Supervisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Supporter_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <End Role="Supporter" Type="Self.Supporter" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Issue" EntityType="Self.Issue" />
+          <EntitySet Name="Note" EntityType="Self.Note" />
+          <EntitySet Name="Service" EntityType="Self.Service" />
+          <EntitySet Name="Supervisor" EntityType="Self.Supervisor" />
+          <EntitySet Name="Supporter" EntityType="Self.Supporter" />
+          <AssociationSet Name="FK__Issue__Id_Suppor__6EF57B66" Association="Self.FK__Issue__Id_Suppor__6EF57B66">
+            <End Role="Supporter" EntitySet="Supporter" />
+            <End Role="Issue" EntitySet="Issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Note__Report_Num__72C60C4A" Association="Self.FK__Note__Report_Num__72C60C4A">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="Note" EntitySet="Note" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Supporter__Id_Su__68487DD7" Association="Self.FK__Supporter__Id_Su__68487DD7">
+            <End Role="Supervisor" EntitySet="Supervisor" />
+            <End Role="Supporter" EntitySet="Supporter" />
+          </AssociationSet>
+          <AssociationSet Name="Supporter_Service" Association="Self.Supporter_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Supporter" EntitySet="Supporter" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppSupport_ProyectModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Issue">
+            <EntityTypeMapping TypeName="AppSupport_ProyectModel.Issue">
+              <MappingFragment StoreEntitySet="Issue">
+                <ScalarProperty Name="Report_Number" ColumnName="Report_Number" />
+                <ScalarProperty Name="Id_Supporter" ColumnName="Id_Supporter" />
+                <ScalarProperty Name="Classification" ColumnName="Classification" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Report_Time" ColumnName="Report_Time" />
+                <ScalarProperty Name="Resolution_Comment" ColumnName="Resolution_Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Note">
+            <EntityTypeMapping TypeName="AppSupport_ProyectModel.Note">
+              <MappingFragment StoreEntitySet="Note">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Report_Number_Issue" ColumnName="Report_Number_Issue" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Note_Time" ColumnName="Note_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Service">
+            <EntityTypeMapping TypeName="AppSupport_ProyectModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supervisor">
+            <EntityTypeMapping TypeName="AppSupport_ProyectModel.Supervisor">
+              <MappingFragment StoreEntitySet="Supervisor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="First_Surname" ColumnName="First_Surname" />
+                <ScalarProperty Name="Second_Surname" ColumnName="Second_Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supporter">
+            <EntityTypeMapping TypeName="AppSupport_ProyectModel.Supporter">
+              <MappingFragment StoreEntitySet="Supporter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Supervisor" ColumnName="Id_Supervisor" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="First_Surname" ColumnName="First_Surname" />
+                <ScalarProperty Name="Second_Surname" ColumnName="Second_Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Supporter_Service" TypeName="AppSupport_ProyectModel.Supporter_Service" StoreEntitySet="Supporter_Service">
+            <EndProperty Name="Service">
+              <ScalarProperty Name="Id" ColumnName="Id_Service" />
+            </EndProperty>
+            <EndProperty Name="Supporter">
+              <ScalarProperty Name="Id" ColumnName="Id_Supporter" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
