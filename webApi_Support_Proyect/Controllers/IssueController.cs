@@ -42,7 +42,7 @@ namespace webApi_Support_Proyect.Controllers
                     .Select(issueItem => new IssueModel()
                     {
                         Report_Number = issueItem.Report_Number,
-                        Id_Supporter = (issueItem.Id_Supporter).Value,
+                        //Id_Supporter = (issueItem.Id_Supporter).Value,
                         Classification = issueItem.Classification,
                         Status = issueItem.Status,
                         Report_Time = issueItem.Report_Time,

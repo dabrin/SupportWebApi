@@ -1,0 +1,27 @@
+<h2>Asignación de soportista a casos</h2>
+
+<hr />
+<div *ngIf="issue">
+    <div>
+        <label><b>Report Number: </b></label> {{issue.Report_Number}}
+    </div>
+    <div>
+        <label><b>Support: </b></label> {{issue.Support}}
+    </div>
+    <div>
+        <label><b>Classification: </b></label>
+        <input type="text" id="Classification" class="form-control" value="{{issue.Classification}}">
+
+    </div>
+    <div>
+        <label><b>Status: </b></label>
+        <input type="text" id="Classification" class="form-control" value=" {{issue.Status}}">
+    </div>
+    <div>
+        <label><b>Comentarios: </b></label>
+        <input type="text" id="Classification" class="form-control" value="{{issue.Resolution_Comment}}">
+    </div>
+
+</div>
+<br>
+<button (click)="list()" class="btn btn-primary">Volver a lista de casos</button>
