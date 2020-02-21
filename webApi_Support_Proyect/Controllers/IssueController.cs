@@ -12,11 +12,11 @@ namespace webApi_Support_Proyect.Controllers
     {
 
 
-        public IHttpActionResult Post(int report_Number) {
+        public IHttpActionResult Post(IssueModel issue) {
 
             using (var ctx = new Entities()) {
                 ctx.Issue.Add(new Issue() {
-                    Report_Number = report_Number,
+                    Report_Number = issue.Report_Number,
                     Id_Supporter = null,
                     Classification = "Media",
                     Status = "Ingresado",
