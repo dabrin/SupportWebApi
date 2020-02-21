@@ -19,22 +19,15 @@ namespace webApi_Support_Proyect.Controllers
             {
                 ctx.Supporter.Add(new Supporter()
                 {
-<<<<<<< HEAD
                     Id = supp.Id_Supporter,
-                    Id_Supervisor = supp.Id_Supervisor,
-                    Pass = supp.Pass,
-                    Name = supp.Name,
-                    First_Surname= supp.First_SurName,
-                    Second_Surname = supp.Second_Surname
-=======
-                    //Id = supp.Id_Supporter,
+
                     Id_Supervisor = 1,
                     Pass = supp.Pass,
                     Name = supp.Name,
-                    First_Surname= supp.First_SurName,
+                    First_Surname = supp.First_SurName,
                     Second_Surname = supp.Second_Surname,
-                    Email=supp.Email
->>>>>>> parent of d159caf... Sincronizando
+                    Email = supp.Email
+
                 });
                 ctx.SaveChanges();
             }
@@ -51,11 +44,11 @@ namespace webApi_Support_Proyect.Controllers
                     .Select(suppItem => new SupporterModel()
                     {
                         Id_Supervisor= suppItem.Id_Supervisor,
-<<<<<<< HEAD
-                        Id_Supporter = suppItem.Id_Supervisor,
-=======
+
+                    
+
                         Id_Supporter = suppItem.Id,
->>>>>>> parent of d159caf... Sincronizando
+
                         Name = suppItem.Name,
                         First_SurName = suppItem.First_Surname,
                         Second_Surname = suppItem.Second_Surname,
