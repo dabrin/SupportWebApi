@@ -23,7 +23,7 @@ export class ListComponent implements OnInit {
         this.issues = this.issueService.getIssueList();
     }
 
-    driverDetails(id: number) {
+    issueDetails(id: number) {
         this.router.navigate(['details', id]);
     }
 }
