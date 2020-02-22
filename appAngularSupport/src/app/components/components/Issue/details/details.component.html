@@ -1,4 +1,4 @@
-<h2>Asignación de soportista a casos</h2>
+<h2>Detalles del caso</h2>
 
 <hr />
 <div *ngIf="issue">
@@ -15,25 +15,211 @@
 
     </div>
     <div>
-        <label><b>Classification: </b></label>
-        <input type="text" id="Classification" class="form-control" value="{{issue.Classification}}">
+        <label><b>Clasificación: </b>{{issue.Classification}}</label>
 
-    </div>
-    <!--
+        <!--<input type="text" id="Classification" class="form-control" value="{{issue.Classification}}">
 
- <div>
-        <label><b>Status: </b></label>
-        <input type="text" id="Status" class="form-control" value=" {{issue.Status}}">
+       -->
+
     </div>
     <div>
-        <label><b>Comentarios: </b></label>
-        <input type="text" id="Resolution_Comment" class="form-control" value="{{issue.Resolution_Comment}}">
+        <label><b>Nombre y apellidos:</b>Nombre apellido1 apellido2</label>
     </div>
 
+    <div>
+        <label><b>Correo:</b>Correo electrónico del cliente.</label>
+    </div>
 
-    -->
+    <div>
+        <label><b>Telefono:</b>Teléfono del cliente.</label>
+    </div>
+    <div>
+        <label><b>Dirección del cliente.:</b>Dirección del cliente.</label>
+    </div>
+    <div>
+        <label><b>Segundo contacto del cliente:</b>Segundo contacto del cliente.</label>
+    </div>
+    <div>
+        <label><b>Telefono:</b>Teléfono del cliente.</label>
+    </div>
+    <div>
+        <label><b>Estado de la solicitud:</b>Estado de la solicitud.</label>
+    </div>
+    <div>
+        <label><b>Correo electrónico del contacto de la solicitud:</b>Correo electrónico del contacto de la
+            solicitud.</label>
+    </div>
+    <div>
+        <label><b>Teléfono del contacto de la solicitud:</b>Teléfono del contacto.</label>
+    </div>
+    <div>
+        <label><b>Comentarios:</b>Commentarios</label>
+    </div>
+    <div>
+        <label><b>Notas:</b>Notas</label>
+    </div>
+    <div>
 
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateClassificationModal">
+            iniciar Proceso
+        </button><br><br>
+
+        <!--
+<button (click)="updateState()" class="btn btn-primary">Actualizar Clasificación</button><br><br>
+
+        -->
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNotesModal">
+            Agregar Notas
+        </button><br><br>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
+            Agregar Comentarios
+        </button><br><br>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
+            Resolver solicitud
+        </button><br><br>
+    </div>
 
 </div>
-<br>
-<button (click)="list()" class="btn btn-primary">Volver a lista de casos</button>
+
+<button (click)="list()" class="btn btn-danger">Volver a lista de casos</button>
+
+
+
+
+<!-- Modal -->
+<div class="modal" id="updateClassificationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Estado de la solicitud</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sel1">Cambiar Estado</label>
+                    <select class="form-control" id="sel1">
+                        <option>Ingresado</option>
+                        <option>Asignado</option>
+                        <option>En Proceso</option>
+                        <option>Resuelto</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="addNotesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Asignar Notas a la solicitud</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="comment">Notas:</label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addCommentsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar Comentarios a la solicitud</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="comment">Comentarios:</label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="resolveIssueModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Agregar Comentarios a la solicitud</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sel1">Cambiar Estado</label>
+                    <select class="form-control" id="sel1">
+                        <option>Ingresado</option>
+                        <option>Asignado</option>
+                        <option>En Proceso</option>
+                        <option>Resuelto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comentarios:</label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

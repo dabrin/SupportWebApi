@@ -41,4 +41,10 @@ export class DetailsComponent implements OnInit {
         this.router.navigate(['Issue']);
     }
 
+
+    updateState() { }
+    addComment() { }
+    addNote() { }
+
+
 }
