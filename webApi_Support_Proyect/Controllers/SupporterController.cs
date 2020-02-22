@@ -44,9 +44,7 @@ namespace webApi_Support_Proyect.Controllers
                     .Select(suppItem => new SupporterModel()
                     {
                         Id_Supervisor= suppItem.Id_Supervisor,
-
-                    
-
+                        
                         Id_Supporter = suppItem.Id,
 
                         Name = suppItem.Name,
