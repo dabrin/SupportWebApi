@@ -164,11 +164,12 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
-    <Compile Include="Controllers\IssueUserContactModelController.cs" />
+    <Compile Include="Controllers\IssueUserContactController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\SupporterController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +198,7 @@
     <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="Models\SupervisorModel.cs" />
     <Compile Include="Models\SupporterModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Note.cs">
       <DependentUpon>model.tt</DependentUpon>
     </Compile>

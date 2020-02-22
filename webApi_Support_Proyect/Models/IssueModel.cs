@@ -21,7 +21,7 @@ namespace webApi_Support_Proyect.Models
         }
 
         public int Report_Number { set; get; }
-       public int Id_Supporter { set; get; }
+        public int Id_Supporter { set; get; }
         public string Classification { set; get; }
         public string Status { set; get; }
         public DateTime Report_Time{ set; get; }

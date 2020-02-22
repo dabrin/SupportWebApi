@@ -7,35 +7,30 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Web.Mvc;
 using webApi_Support_Proyect.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace webApi_Support_Proyect.Controllers
 {
-    public class IssueUserContactController : Controller
+    public class IssueUserContactController : ApiController
     {
         // GET: IssueUserContactModel
-        public ActionResult Index()
-        {
-            return View();
-        }
+      
 
         //En teoría así se consume un Api Rest desde aquí
         public IHttpActionResult GetById(int id)
         {
 
             string url= "http://localhost:8080/api/issue/";
-            var json = new WebClient().DownloadString(url);
+            var httpClient = new HttpClient();
+            var json = new WebClient().DownloadString(url+id);
             dynamic m = JsonConvert.DeserializeObject(json);
-
-            IssueModel issue = null;
-
-            foreach (var i in m) {
-                issue.Report_Number = i.Report_Number;
-
-            }
             
 
+           
 
-            return Json(m);
+
+           return Json(m);
 
         }
     }

@@ -1,13 +1,13 @@
 <h2>Detalles del caso</h2>
 
 <hr />
-<div *ngIf="issue">
+<div *ngIf="issContact">
     <div>
-        <label><b>Report Number: </b></label> {{issue.Report_Number}}
+        <label><b>Report Number: </b></label> {{issContact.reportNumber}}
     </div>
     <div>
         <label><b>Support: </b></label>
-        <select id="cars" name="cars">
+        <select id="supports" name="supports">
             <option *ngFor="let Support of supports | async" value="{{Support.Id_Supporter}}">{{Support.Name}}
             </option>
 
@@ -17,40 +17,31 @@
     <div>
         <label><b>Clasificación: </b>{{issue.Classification}}</label>
 
-        <!--<input type="text" id="Classification" class="form-control" value="{{issue.Classification}}">
-
-       -->
-
     </div>
     <div>
-        <label><b>Nombre y apellidos:</b>Nombre apellido1 apellido2</label>
+        <label><b>Nombre y apellidos:</b></label> {{user.name}} {{user.firstSurname}} {{user.secondSurname}}
     </div>
 
     <div>
-        <label><b>Correo:</b>Correo electrónico del cliente.</label>
-    </div>
-
-    <div>
-        <label><b>Telefono:</b>Teléfono del cliente.</label>
+        <label><b>Correo:</b> {{user.email}}</label>
     </div>
     <div>
-        <label><b>Dirección del cliente.:</b>Dirección del cliente.</label>
+        <label><b>Dirección del cliente.:</b> {{issContact.address}}</label>
     </div>
     <div>
-        <label><b>Segundo contacto del cliente:</b>Segundo contacto del cliente.</label>
+        <label><b>Segundo contacto del cliente:</b> {{user.secondContact}}</label>
     </div>
     <div>
-        <label><b>Telefono:</b>Teléfono del cliente.</label>
+        <label><b>Telefono:</b>{{user.phone}}</label>
     </div>
     <div>
-        <label><b>Estado de la solicitud:</b>Estado de la solicitud.</label>
+        <label><b>Estado de la solicitud:</b>{{issContact.status}}</label>
     </div>
     <div>
-        <label><b>Correo electrónico del contacto de la solicitud:</b>Correo electrónico del contacto de la
-            solicitud.</label>
+        <label><b>Correo electrónico del contacto de la solicitud:</b>{{issContact.contactPhone}}</label>
     </div>
     <div>
-        <label><b>Teléfono del contacto de la solicitud:</b>Teléfono del contacto.</label>
+        <label><b>Teléfono del contacto de la solicitud:</b>{{issContact.contactEmail}}</label>
     </div>
     <div>
         <label><b>Comentarios:</b>Commentarios</label>

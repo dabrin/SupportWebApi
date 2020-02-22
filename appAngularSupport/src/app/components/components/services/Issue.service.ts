@@ -9,7 +9,9 @@ import { Issue } from '../models/Issue';
 })
 export class IssueService {
     private baseUrl = 'http://localhost:50044/api/issue/';
-    private urlClient = '';
+    private urlIssueClient = 'http://localhost:50044/api/issueUserContact/';
+    private urlUser = 'http://localhost:50044/api/User/';
+
     constructor(private http: HttpClient) { }
 
     getIssue(id: number): Observable<any> {
@@ -31,10 +33,18 @@ export class IssueService {
 
     getIssueList(): Observable<any> {
 
-        //console.log(`${this.baseUrl}`);
-        //console.log(this.http.get(`${this.baseUrl}`).pipe(map((res: any) => { return res })));
-
         return this.http.get(`${this.baseUrl}`);
-        //
+
+    }
+
+
+    getIssueContact(id: number): Observable<any> {
+        return this.http.get(`${this.urlIssueClient}${id}`);
+
+    }
+
+    getUser(id: number): Observable<any> {
+        return this.http.get(`${this.urlUser}${id}`);
+
     }
 }
