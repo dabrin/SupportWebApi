@@ -9,7 +9,7 @@ import { Support } from '../models/Support';
 })
 export class SupportService {
     private baseUrl = 'http://localhost:50044/api/Supporter/';
-    private urlClient = '';
+    //private urlClient = '';
     constructor(private http: HttpClient) { }
 
     getIssue(id: number): Observable<any> {

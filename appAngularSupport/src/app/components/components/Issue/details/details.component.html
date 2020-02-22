@@ -6,21 +6,33 @@
         <label><b>Report Number: </b></label> {{issue.Report_Number}}
     </div>
     <div>
-        <label><b>Support: </b></label> {{issue.Support}}
+        <label><b>Support: </b></label>
+        <select id="cars" name="cars">
+            <option *ngFor="let Support of supports | async" value="{{Support.Id_Supporter}}">{{Support.Name}}
+            </option>
+
+        </select>
+
     </div>
     <div>
         <label><b>Classification: </b></label>
         <input type="text" id="Classification" class="form-control" value="{{issue.Classification}}">
 
     </div>
-    <div>
+    <!--
+
+ <div>
         <label><b>Status: </b></label>
-        <input type="text" id="Classification" class="form-control" value=" {{issue.Status}}">
+        <input type="text" id="Status" class="form-control" value=" {{issue.Status}}">
     </div>
     <div>
         <label><b>Comentarios: </b></label>
-        <input type="text" id="Classification" class="form-control" value="{{issue.Resolution_Comment}}">
+        <input type="text" id="Resolution_Comment" class="form-control" value="{{issue.Resolution_Comment}}">
     </div>
+
+
+    -->
+
 
 </div>
 <br>
