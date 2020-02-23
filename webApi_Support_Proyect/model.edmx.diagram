@@ -14,6 +14,8 @@
         <AssociationConnector Association="AppSupport_ProyectModel.FK__Note__Report_Num__72C60C4A" ManuallyRouted="false" />
         <AssociationConnector Association="AppSupport_ProyectModel.FK__Supporter__Id_Su__68487DD7" ManuallyRouted="false" />
         <AssociationConnector Association="AppSupport_ProyectModel.Supporter_Service" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AppSupport_ProyectModel.Comment" Width="2" PointX="5.625" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="AppSupport_ProyectModel.CommentIssue" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

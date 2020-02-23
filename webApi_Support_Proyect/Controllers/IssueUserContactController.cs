@@ -20,15 +20,10 @@ namespace webApi_Support_Proyect.Controllers
         //En teoría así se consume un Api Rest desde aquí
         public IHttpActionResult GetById(int id)
         {
-
             string url= "http://localhost:8080/api/issue/";
             var httpClient = new HttpClient();
             var json = new WebClient().DownloadString(url+id);
             dynamic m = JsonConvert.DeserializeObject(json);
-            
-
-           
-
 
            return Json(m);
 
