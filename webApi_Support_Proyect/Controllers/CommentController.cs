@@ -8,7 +8,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using webApi_Support_Proyect.Models;
 using System.Web.Script.Serialization;
-
+using System.Threading.Tasks;
 
 namespace webApi_Support_Proyect.Controllers
 {
@@ -27,16 +27,12 @@ namespace webApi_Support_Proyect.Controllers
         }
 
 
-        public IHttpActionResult Post(CommentModel comment) {
-            ///JavaScriptSerializer js = new JavaScriptSerializer();
-            
+        public async Task<IHttpActionResult> PostAsync(CommentModel comment) {
             string url = "http://localhost:8080/api/comment/";
-            var httpClient = new HttpClient();
-            var m = comment;
-            //m = Json(comment);
-            var json = new System.Net.WebClient().UploadString(url,  Json(m));
-
-            return Json(json);
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsJsonAsync(url, comment);
+            response.EnsureSuccessStatusCode();
+            return Json(response.Content.ReadAsAsync<CommentModel>().Result);
         }
 
     }
