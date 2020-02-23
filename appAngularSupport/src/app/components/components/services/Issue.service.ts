@@ -25,9 +25,17 @@ export class IssueService {
         return this.http.post(`${this.baseUrl}`, issue);
     }
 
-    updateIssue(value: Issue): Observable<any> {
+    updateIssue(value: Issue) {
         //this.router.navigate(['Issue']);
-        return this.http.put(`${this.baseUrl}`, value);
+        //console.log(value);
+        //console.log(this.baseUrl + issue)
+
+
+        return this.http.put('http://localhost:50044/api/issue/', value).subscribe(
+            response => value as Issue,
+            error => console.log(error)
+        );
+
     }
 
     deleteDriver(id: number): Observable<any> {

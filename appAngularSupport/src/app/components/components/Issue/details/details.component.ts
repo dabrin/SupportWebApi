@@ -64,6 +64,8 @@ export class DetailsComponent implements OnInit {
     updateState() {
         //this.router.navigate(['Issue']);
         this.issue.Status = 'Asignado';
+        this.issue.Report_Number = 1;
+        console.log(this.issue);
         this.issueService.updateIssue(this.issue);
 
 
