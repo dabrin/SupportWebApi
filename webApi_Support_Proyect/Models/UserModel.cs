@@ -9,21 +9,13 @@ namespace webApi_Support_Proyect.Models
     {
 
         private int id { set; get; }
-     
         private string pass { set; get; }
-
         private string name { set; get; }
-
         private string firstSurname { set; get; }
-
         private string secondSurname { set; get; }
-
         private string address { set; get; }
-
         private string phone { set; get; }
-
         private string secondContact { set; get; }
-
         private string email { set; get; }
 
     }

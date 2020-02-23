@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Issue } from '../models/Issue';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +13,8 @@ export class IssueService {
     private baseUrl = 'http://localhost:50044/api/issue/';
     private urlIssueClient = 'http://localhost:50044/api/issueUserContact/';
     private urlUser = 'http://localhost:50044/api/User/';
-
-    constructor(private http: HttpClient) { }
+    issue: Issue;
+    constructor(private http: HttpClient, private router: Router) { }
 
     getIssue(id: number): Observable<any> {
         //return this.http.get(`${this.baseUrl}${id}`).subscribe((data) => { });
@@ -23,8 +25,9 @@ export class IssueService {
         return this.http.post(`${this.baseUrl}`, issue);
     }
 
-    updateDriver(id: number, value: Issue): Observable<any> {
-        return this.http.put(`${this.baseUrl}${id}`, value);
+    updateIssue(value: Issue): Observable<any> {
+        //this.router.navigate(['Issue']);
+        return this.http.put(`${this.baseUrl}`, value);
     }
 
     deleteDriver(id: number): Observable<any> {
