@@ -44,7 +44,11 @@
         <label><b>Teléfono del contacto de la solicitud:</b>{{issContact.contactEmail}}</label>
     </div>
     <div>
-        <label><b>Comentarios:</b>Commentarios</label>
+        <label><b>Comentarios:</b>
+            <div *ngFor="let Comment of comments | async">
+                {{Comment.description}}
+            </div>
+        </label>
     </div>
     <div>
         <label><b>Notas:</b>Notas</label>
@@ -67,7 +71,8 @@
         </button><br><br>
     </div>
     <div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
+        <button (click)="addComment()" type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#addCommentsModal">
             Agregar Comentarios
         </button><br><br>
     </div>

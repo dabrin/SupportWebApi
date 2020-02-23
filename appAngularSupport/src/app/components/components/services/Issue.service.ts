@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Issue } from '../models/Issue';
+import { Comment } from '../models/Comment';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -13,6 +14,9 @@ export class IssueService {
     private baseUrl = 'http://localhost:50044/api/issue/';
     private urlIssueClient = 'http://localhost:50044/api/issueUserContact/';
     private urlUser = 'http://localhost:50044/api/User/';
+    private urlComment = 'http://localhost:8080/api/comment/';
+
+
     issue: Issue;
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -25,6 +29,11 @@ export class IssueService {
         return this.http.post(`${this.baseUrl}`, issue);
     }
 
+
+    createCommet(value: Comment) {
+        return this.http.post(`${this.urlComment}`, value);
+
+    }
     updateIssue(value: Issue) {
         //this.router.navigate(['Issue']);
         //console.log(value);
@@ -56,6 +65,11 @@ export class IssueService {
 
     getUser(id: number): Observable<any> {
         return this.http.get(`${this.urlUser}${id}`);
+
+    }
+
+    getCommentList(id: number): Observable<any> {
+        return this.http.get(`${this.urlComment}${id}`)
 
     }
 }

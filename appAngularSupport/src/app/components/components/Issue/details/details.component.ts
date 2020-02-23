@@ -3,6 +3,7 @@ import { Issue } from '../../models/Issue';
 import { Support } from '../../models/Support';
 import { IssueContact } from '../../models/IssueContact';
 import { User } from '../../models/User';
+import { Comment } from '../../models/Comment';
 import { IssueService } from '../../services/Issue.service';
 import { SupportService } from '../../services/Support.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +20,8 @@ export class DetailsComponent implements OnInit {
     issue: Issue;
     issContact: IssueContact;
     user: User;
+    comment: Comment;
+    comments: Observable<Comment[]>;
     supports: Observable<Support[]>;
     constructor(private route: ActivatedRoute, private router: Router,
         private issueService: IssueService, private suppService: SupportService) { }
@@ -28,6 +31,7 @@ export class DetailsComponent implements OnInit {
         this.issue = new Issue();
         this.issContact = new IssueContact();
         this.user = new User();
+        this.comment = new Comment();
         this.id = this.route.snapshot.params.id;
         this.issueService.getIssueContact(this.id).subscribe(data => {
             console.log(data);
@@ -53,6 +57,7 @@ export class DetailsComponent implements OnInit {
 
     reloadData() {
         this.supports = this.suppService.getSupportList();
+        this.comments = this.issueService.getCommentList(this.id);
 
     }
 
@@ -68,10 +73,15 @@ export class DetailsComponent implements OnInit {
         console.log(this.issue);
         this.issueService.updateIssue(this.issue);
 
+    }
+    addComment() {
 
+        this.comment.Description = 'Desde Angular';
+        this.comment.Report_Number = this.id;
+        this.comment.Comment_Time = '2020-02-23T15:48:23.933Z';
+        this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
 
     }
-    addComment() { }
     addNote() { }
 
 
