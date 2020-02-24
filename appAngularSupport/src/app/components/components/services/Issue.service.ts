@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { Issue } from '../models/Issue';
 import { Comment } from '../models/Comment';
+import { Note } from '../models/Note';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -15,6 +16,8 @@ export class IssueService {
     private urlIssueClient = 'http://localhost:50044/api/issueUserContact/';
     private urlUser = 'http://localhost:50044/api/User/';
     private urlComment = 'http://localhost:50044/api/comment/';
+    private urlNote = 'http://localhost:50044/api/Note/';
+
 
 
     issue: Issue;
@@ -33,6 +36,10 @@ export class IssueService {
     createCommet(value: Comment) {
         return this.http.post(`${this.urlComment}`, value);
 
+    }
+    createNote(value: Note) {
+
+        return this.http.post(`${this.urlNote}`, value)
     }
     updateIssue(value: Issue) {
         //this.router.navigate(['Issue']);

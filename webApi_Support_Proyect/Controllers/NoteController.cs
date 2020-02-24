@@ -18,7 +18,7 @@ namespace webApi_Support_Proyect.Controllers
             {
                 ctx.Note.Add(new Note()
                 {
-                    Id = note.Id_Note,
+                    //Id = note.Id_Note,
                     Report_Number_Issue = note.Report_Number,
                     Description = note.Description,
                     Note_Time = note.Note_Time
