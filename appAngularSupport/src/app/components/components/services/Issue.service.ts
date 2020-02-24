@@ -38,9 +38,14 @@ export class IssueService {
 
     }
     createNote(value: Note) {
-
         return this.http.post(`${this.urlNote}`, value)
     }
+
+    getNote(id:number): Observable<any> {
+        return this.http.get(`${this.urlNote}${id}`);
+    }
+
+
     updateIssue(value: Issue) {
         //this.router.navigate(['Issue']);
         //console.log(value);

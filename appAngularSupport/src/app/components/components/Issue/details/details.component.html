@@ -46,12 +46,15 @@
     <div>
         <label><b>Comentarios:</b>
             <div *ngFor="let Comment of comments | async">
-                {{Comment.description}}
+                {{Comment.description}} 
             </div>
         </label>
     </div>
     <div>
-        <label><b>Notas:</b>Notas</label>
+        <label><b>Notas:</b></label>
+        <div *ngFor="let Note of notes | async">
+            {{Note.description}}
+        </div>
     </div>
     <div>
 
