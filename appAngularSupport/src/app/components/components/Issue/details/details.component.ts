@@ -26,7 +26,7 @@ export class DetailsComponent implements OnInit {
     note: Note;
     comments: Observable<Comment[]>;
     supports: Observable<Support[]>;
-    notes : Observable <Note[]>;
+    notes: Observable<Note[]>;
     constructor(private route: ActivatedRoute, private router: Router,
         private issueService: IssueService, private suppService: SupportService) { }
 
@@ -37,7 +37,7 @@ export class DetailsComponent implements OnInit {
         this.user = new User();
         this.comment = new Comment();
         this.id = this.route.snapshot.params.id;
-        this.note = new Note ();
+        this.note = new Note();
 
 
         this.issueService.getIssueContact(this.id).subscribe(data => {

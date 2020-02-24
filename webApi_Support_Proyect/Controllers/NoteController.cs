@@ -56,12 +56,12 @@ namespace webApi_Support_Proyect.Controllers
 
         public IHttpActionResult GetById(int id)
         {
-
-            NoteModel noteModel = null;
+            IList<NoteModel> notes = null;
+            //NoteModel noteModel = null;
             using (var context = new Entities())
             {
 
-                noteModel = context.Note.Where(noteItem => noteItem.Id == id).
+                notes = context.Note.Where(noteItem => noteItem.Report_Number_Issue == id).
                     Select(noteItem => new NoteModel()
                     {
                         Id_Note = noteItem.Id,
@@ -69,14 +69,14 @@ namespace webApi_Support_Proyect.Controllers
                         Description = noteItem.Description,
                         Note_Time = noteItem.Note_Time
 
-                    }).FirstOrDefault<NoteModel>();
+                    }).ToList<NoteModel>();
             }
-            if (noteModel == null)
+            if (notes == null)
             {
                 return NotFound();
             }
             else
-                return Json(noteModel);
+                return Json(notes);
 
         }
 
