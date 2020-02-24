@@ -8,5 +8,4 @@ export class User {
     phone: number;
     secondContact: string;
     email: string;
-
 }

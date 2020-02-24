@@ -55,7 +55,6 @@ namespace webApi_Support_Proyect.Controllers
 
         public IHttpActionResult GetById(int id)
         {
-
             SupervisorModel superModel = null;
             using (var context = new Entities())
             {
@@ -77,7 +76,6 @@ namespace webApi_Support_Proyect.Controllers
             }
             else
                 return Json(superModel);
-
         }
 
 
