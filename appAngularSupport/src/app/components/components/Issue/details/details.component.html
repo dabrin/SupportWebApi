@@ -71,8 +71,7 @@
         </button><br><br>
     </div>
     <div>
-        <button (click)="addComment()" type="button" class="btn btn-primary" data-toggle="modal"
-            data-target="#addCommentsModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
             Agregar Comentarios
         </button><br><br>
     </div>
@@ -140,7 +139,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="comment">Notas:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <textarea class="form-control" rows="5" id="note"></textarea>
                 </div>
             </div>
 
@@ -168,13 +167,13 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="comment">Comentarios:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <textarea type="text" class="form-control" rows="5" id="comment"></textarea>
                 </div>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button (click)="addComment()" type="button" class="btn btn-success">Guardar Cambios</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
@@ -206,7 +205,7 @@
                 </div>
                 <div class="form-group">
                     <label for="comment">Comentarios:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <textarea class="form-control" rows="5" id="resolComment"></textarea>
                 </div>
             </div>
 

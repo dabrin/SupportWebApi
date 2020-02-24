@@ -14,7 +14,7 @@ export class IssueService {
     private baseUrl = 'http://localhost:50044/api/issue/';
     private urlIssueClient = 'http://localhost:50044/api/issueUserContact/';
     private urlUser = 'http://localhost:50044/api/User/';
-    private urlComment = 'http://localhost:8080/api/comment/';
+    private urlComment = 'http://localhost:50044/api/comment/';
 
 
     issue: Issue;

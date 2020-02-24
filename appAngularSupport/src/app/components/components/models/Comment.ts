@@ -1,7 +1,7 @@
 export class Comment {
-    Report_Number: number;
+    issueByReportNumber: number;
     Id: number;
     Description: string;
-    Comment_Time: string;
+    commentTime: string;
 
 }

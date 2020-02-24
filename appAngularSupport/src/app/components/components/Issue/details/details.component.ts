@@ -76,9 +76,10 @@ export class DetailsComponent implements OnInit {
     }
     addComment() {
 
-        this.comment.Description = 'Desde Angular';
-        this.comment.Report_Number = this.id;
-        this.comment.Comment_Time = '2020-02-23T15:48:23.933Z';
+
+        this.comment.Description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
+        this.comment.issueByReportNumber = this.issue.Report_Number;
+        this.comment.commentTime = '2020-02-23T15:48:23.933Z';
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
 
     }
