@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
-import {first} from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   error: string;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router,
-              private authenticationService: AuthenticationService) { }
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/Issue']);
         },
         res => {
           this.error = res.error.text;
