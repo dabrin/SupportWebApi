@@ -1,10 +1,12 @@
 
 
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using webApi_Support_Proyect.Models;
 
@@ -58,35 +60,49 @@ namespace webApi_Support_Proyect.Controllers
 
         }
 
-        public IHttpActionResult GetById(int id)
-        {
 
-            IssueModel issue = null;
-            using (var context = new Entities())
-            {
+         public IHttpActionResult GetById(int id)
+          {
 
-                issue = context.Issue.Where(issueItem => issueItem.Report_Number == id).
-                    Select(issueItem => new IssueModel()
-                    {
-                        Report_Number = issueItem.Report_Number,
-                        //Id_Supporter = issueItem.Id_Supporter.Value,
-                        Classification = issueItem.Classification,
-                        Status = issueItem.Status,
-                        Report_Time = issueItem.Report_Time,
-                        Resolution_Comment = issueItem.Resolution_Comment
+              IssueModel issue = null;
+              using (var context = new Entities())
+              {
+
+                  issue = context.Issue.Where(issueItem => issueItem.Report_Number == id).
+                      Select(issueItem => new IssueModel()
+                      {
+                          Report_Number = issueItem.Report_Number,
+                          //Id_Supporter = issueItem.Id_Supporter.Value,
+                          Classification = issueItem.Classification,
+                          Status = issueItem.Status,
+                          Report_Time = issueItem.Report_Time,
+                          Resolution_Comment = issueItem.Resolution_Comment
 
 
-                    }).FirstOrDefault<IssueModel>();
-            }
-            if (issue == null)
-            {
-                return NotFound();
-            }
-            else
-                return Json(issue);
+                      }).FirstOrDefault<IssueModel>();
+              }
+              if (issue == null)
+              {
+                  return NotFound();
+              }
+              else
+                  return Json(issue);
 
-        }
+          }
 
+       
+
+        /*  public IHttpActionResult GetById(int id)
+          {
+
+              string url = "http://localhost:8080/api/issue/"+id;
+              var httpClient = new HttpClient();
+              var json = new WebClient().DownloadString(url);
+              dynamic m = JsonConvert.DeserializeObject(json);
+
+              return Json(m);
+
+          }*/
 
         public IHttpActionResult Delete(int id)
         {
@@ -107,7 +123,7 @@ namespace webApi_Support_Proyect.Controllers
         }
 
 
-        public IHttpActionResult Put(Issue issue)
+        public  IHttpActionResult Put(Issue issue)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
@@ -124,23 +140,17 @@ namespace webApi_Support_Proyect.Controllers
                     existingIssue.Resolution_Comment = issue.Resolution_Comment;
                     existingIssue.Report_Time = issue.Report_Time;
                     ctx.SaveChanges();
+                    
                 }
                 else
                 {
                     return NotFound();
                 }
             }
-
             return Ok();
         }
 
-
-
-
-
-
-
-
+       
 
 
 

@@ -19,6 +19,8 @@ import { NotExpr } from '@angular/compiler';
 })
 export class DetailsComponent implements OnInit {
     id: number;
+    str: string;
+    userId: number;
     issue: Issue;
     issContact: IssueContact;
     user: User;
@@ -37,28 +39,37 @@ export class DetailsComponent implements OnInit {
         this.user = new User();
         this.comment = new Comment();
         this.id = this.route.snapshot.params.id;
+
         this.note = new Note();
 
 
         this.issueService.getIssueContact(this.id).subscribe(data => {
-            console.log(data);
             this.issContact = data;
+            console.log(this.issContact);
+            this.issueService.getUser(this.issContact.userById)
+                .subscribe(data => {
+                    console.log(data);
+                    this.user = data;
+                }, error => console.log())
+
         }, error => console.log());
 
 
         this.issueService.getIssue(this.id)
             .subscribe(data => {
-                console.log(data);
                 this.issue = data;
-            }, error => console.log());
+                console.log(this.issue);
 
-        this.issueService.getUser(this.id)
-            .subscribe(data => {
-                console.log(data);
-                this.user = data;
             }, error => console.log());
 
         this.reloadData();
+
+        //this.userId = this.issContact.userById;
+        //this.userId = this.route.snapshot.data.issContact.userById;
+
+
+
+
 
     }
 
@@ -66,6 +77,7 @@ export class DetailsComponent implements OnInit {
         this.supports = this.suppService.getSupportList();
         this.comments = this.issueService.getCommentList(this.id);
         this.notes = this.issueService.getNote(this.id);
+
 
     }
 
@@ -77,9 +89,9 @@ export class DetailsComponent implements OnInit {
     updateState() {
         //this.router.navigate(['Issue']);
         this.issue.Status = 'Asignado';
-        this.issue.Report_Number = 1;
+        this.issue.Report_Number = this.id;
         console.log(this.issue);
-        this.issueService.updateIssue(this.issue);
+        this.issueService.updateIssue(this.id, this.issue);
 
     }
     addComment() {

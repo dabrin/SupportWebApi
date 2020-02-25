@@ -14,6 +14,7 @@
         </select>
 
     </div>
+
     <div>
         <label><b>Clasificación: </b>{{issue.Classification}}</label>
 
@@ -36,6 +37,12 @@
     </div>
     <div>
         <label><b>Estado de la solicitud:</b>{{issContact.status}}</label>
+        <br>
+
+        <button *ngIf="issContact.status as 'Ingresado'" type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#updateClassificationModal">
+            Iniciar Proceso
+        </button>
     </div>
     <div>
         <label><b>Correo electrónico del contacto de la solicitud:</b>{{issContact.contactPhone}}</label>
@@ -44,24 +51,30 @@
         <label><b>Teléfono del contacto de la solicitud:</b>{{issContact.contactEmail}}</label>
     </div>
     <div>
-        <label><b>Comentarios:</b>
-            <div *ngFor="let Comment of comments | async">
+        <label><b>Comentarios:</b></label>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let Comment of comments | async">
                 {{Comment.description}}
-            </div>
-        </label>
+            </li>
+        </ul>
+
+
     </div>
     <div>
         <label><b>Notas:</b></label>
-        <div *ngFor="let Note of notes | async">
-            {{Note.Description}}
-        </div>
+
+        <label><b>Comentarios:</b></label>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let Note of notes | async">
+                {{Note.Description}}
+            </li>
+        </ul>
+
     </div>
     <div>
 
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateClassificationModal">
-            Iniciar Proceso
-        </button><br><br>
+
 
         <!--
 <button (click)="updateState()" class="btn btn-primary">Actualizar Clasificación</button><br><br>

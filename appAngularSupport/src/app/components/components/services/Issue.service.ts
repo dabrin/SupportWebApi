@@ -13,6 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class IssueService {
     private baseUrl = 'http://localhost:50044/api/issue/';
+    private urlIss = 'http://localhost:8080/api/issue/';
+
+    //private issueUrl = 'http://localhost:50044/api/issue/';
+
     private urlIssueClient = 'http://localhost:50044/api/issueUserContact/';
     private urlUser = 'http://localhost:50044/api/User/';
     private urlComment = 'http://localhost:50044/api/comment/';
@@ -41,22 +45,23 @@ export class IssueService {
         return this.http.post(`${this.urlNote}`, value)
     }
 
-    getNote(id:number): Observable<any> {
+    getNote(id: number): Observable<any> {
         return this.http.get(`${this.urlNote}${id}`);
     }
 
 
-    updateIssue(value: Issue) {
-        //this.router.navigate(['Issue']);
-        //console.log(value);
-        //console.log(this.baseUrl + issue)
+    updateIssue(id: number, value: Issue) {
 
-
+        this.updIss(id, value)
         return this.http.put('http://localhost:50044/api/issue/', value).subscribe(
             response => value as Issue,
             error => console.log(error)
         );
 
+    }
+    updIss(id: number, value: Issue): Observable<any> {
+
+        return this.http.put(`${this.urlIss}${id}`, value);
     }
 
     deleteDriver(id: number): Observable<any> {

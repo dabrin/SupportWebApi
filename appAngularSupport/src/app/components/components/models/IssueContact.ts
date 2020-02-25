@@ -8,8 +8,11 @@ export class IssueContact {
     State: string;
     Contact_Phone: number;
     Contact_Email: string;
+    userById: number;
     Comments: string;
     Note: string;
+
+
 }
 
 
