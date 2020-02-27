@@ -25,6 +25,9 @@ export class DetailsComponent implements OnInit {
     comments: Observable<Comment[]>;
     notes: Observable<Note[]>;
     supports: Observable<Support[]>;
+    loading: boolean;
+    error: null;
+
     constructor(private route: ActivatedRoute, private router: Router,
                 private issueService: IssueService, private suppService: SupportService) { }
 
@@ -35,7 +38,6 @@ export class DetailsComponent implements OnInit {
         this.comment = new Comment();
         this.note = new Note();
         this.id = this.route.snapshot.params.id;
-
 
         this.issueService.getIssueClient(this.id).subscribe(data => {
             this.issueClient = data;
@@ -64,18 +66,14 @@ export class DetailsComponent implements OnInit {
         this.router.navigate(['Issue']);
     }
 
-    updateState() {
-        this.issue.Status = 'Asignado';
-        this.issue.Report_Number = this.id;
-        console.log(this.issue);
-        //this.issueService.updateIssue(this.id, this.issue);
+    updateStatus(status: string) {
+      this.issueService.updateStatusIssue(this.id, status);
     }
+
     addComment() {
         this.comment.description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
         this.comment.issueByReportNumber = this.issue.Report_Number;
-        this.comment.commentTime = '2020-02-23T15:48:23.933Z';
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
-
     }
     addNote() {
         this.note.Report_Number = this.issue.Report_Number;
