@@ -1,6 +1,8 @@
 <h2>Detalles del caso</h2>
 
 <hr />
+
+<div *ngIf=""></div>
 <div *ngIf="issueClient && user && issue">
     <div>
         <label><b>Report Number: </b></label> {{ issueClient.reportNumber }}
@@ -39,11 +41,11 @@
         </select>
     </div>
     <div>
-      <button *ngIf="issue.Status === 'Asignado'" type="button" (click)="updateStatus('Asignado')">
-        Iniciar Proceso
-      </button>
-      <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
-      <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+        <button *ngIf="issue.Status === 'Asignado'" type="button" (click)="updateStatus('Asignado')">
+            Iniciar Proceso
+        </button>
+        <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+        <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
     </div>
     <br>
     <div>

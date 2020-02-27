@@ -19,7 +19,7 @@ namespace webApi_Support_Proyect.Controllers
             {
                 ctx.Supporter.Add(new Supporter()
                 {
-                    Id = supp.Id_Supporter,
+                    //Id = supp.Id_Supporter,
 
                     Id_Supervisor = 1,
                     Pass = supp.Pass,

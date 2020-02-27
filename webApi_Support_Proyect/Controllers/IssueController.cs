@@ -122,10 +122,10 @@ namespace webApi_Support_Proyect.Controllers
 
                 if (existingIssue != null)
                 {
-                    existingIssue.Classification = issue.Classification;
-                    existingIssue.Status = issue.Status;
+                    //existingIssue.Classification = issue.Classification;
+                    //existingIssue.Status = issue.Status;
                     existingIssue.Resolution_Comment = issue.Resolution_Comment;
-                    existingIssue.Report_Time = issue.Report_Time;
+                    //existingIssue.Report_Time = issue.Report_Time;
                     ctx.SaveChanges();
                     
                 }

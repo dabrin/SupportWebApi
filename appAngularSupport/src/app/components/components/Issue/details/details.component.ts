@@ -5,6 +5,7 @@ import { IssueClient } from '../../models/IssueClient';
 import { User } from '../../models/User';
 import { Comment } from '../../models/Comment';
 import { Note } from '../../models/Note';
+
 import { IssueService } from '../../services/Issue.service';
 import { SupportService } from '../../services/Support.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +17,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
+    idSess: number;
     id: number;
     issue: Issue;
     issueClient: IssueClient;
@@ -38,6 +40,7 @@ export class DetailsComponent implements OnInit {
         this.comment = new Comment();
         this.note = new Note();
         this.id = this.route.snapshot.params.id;
+
 
         this.issueService.getIssueClient(this.id).subscribe(data => {
             this.issueClient = data;
@@ -67,7 +70,7 @@ export class DetailsComponent implements OnInit {
     }
 
     updateStatus(status: string) {
-      this.issueService.updateStatusIssue(this.id, status);
+        this.issueService.updateStatusIssue(this.id, status);
     }
 
     addComment() {
@@ -80,21 +83,16 @@ export class DetailsComponent implements OnInit {
         this.note.Note_Time = '2020-02-23T15:48:23.933Z';
         this.note.Description = (document.querySelector('#note') as HTMLTextAreaElement).value;
         this.issueService.createNote(this.note).subscribe(() => 'Succces', error => 'Error');
-
     }
 
 
     resolveIssue() {
-
-        //this.issue.Status = 'Resuelto';
-
         this.comment.issueByReportNumber = this.issue.Report_Number;
         this.comment.description = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
-
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
         this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto');
         this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
-        //this.issueService.resolveIssue(this.id, this.issue);
+
 
 
     }
