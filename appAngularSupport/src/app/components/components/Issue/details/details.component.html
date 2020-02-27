@@ -42,21 +42,20 @@
     </div>
 
     <div *ngIf="issue.Status === 'Ingresado'">
-      <button type="button" class="btn btn-primary"
-              (click)="updateStatus('En Progreso')">
-        Iniciar Proceso
-      </button>
-      <br>
+        <button type="button" class="btn btn-primary" (click)="updateStatus('En Progreso')">
+            Iniciar Proceso
+        </button>
+        <br>
     </div>
     <div *ngIf="issue.Status === 'Ingresado'">
-      <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
-      <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
-      <br>
+        <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+        <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+        <br>
     </div>
     <div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
-        Resolver solicitud
-      </button><br>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
+            Resolver solicitud
+        </button><br>
     </div>
     <div>
         <label><b>Comentarios:</b></label>
@@ -116,6 +115,11 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button (click)="addNote()" type="button" class="btn btn-success">Guardar Cambios</button>
+                <div>
+                    <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+                    <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+                    <br>
+                </div>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
