@@ -71,41 +71,61 @@ export class DetailsComponent implements OnInit {
     }
 
     updateStatus(status: string) {
-      this.loading = true;
-      this.issueService.updateStatusIssue(this.id, status).subscribe( data => {
-        swal.fire({
-          icon: 'success',
-          text: 'Se ha actualizado el estado'
-        }).finally(() => {
-          window.location.reload();
+        this.loading = true;
+        this.issueService.updateStatusIssue(this.id, status).subscribe(data => {
+            swal.fire({
+                icon: 'success',
+                text: 'Se ha actualizado el estado'
+            }).finally(() => {
+                window.location.reload();
+            });
+        }, res => {
+            this.error = res.error.text;
+            this.loading = false;
         });
-      }, res => {
-        this.error = res.error.text;
-        this.loading = false;
-      });
     }
 
     addComment() {
         this.comment.description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
         this.comment.issueByReportNumber = this.issue.Report_Number;
-        this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
+        this.issueService.createCommet(this.comment).subscribe(() => {
+            swal.fire({
+                icon: 'success',
+                text: 'Se ha agregado el comentario'
+            }).finally(() => {
+                window.location.reload();
+            });
+        }, res => {
+            this.error = res.error.text;
+            this.loading = false;
+        });
     }
     addNote() {
         this.note.Report_Number = this.issue.Report_Number;
         this.note.Note_Time = '2020-02-23T15:48:23.933Z';
         this.note.Description = (document.querySelector('#note') as HTMLTextAreaElement).value;
-        this.issueService.createNote(this.note).subscribe(() => 'Succces', error => 'Error');
+        this.issueService.createNote(this.note).subscribe(() => {
+            swal.fire({
+                icon: 'success',
+                text: 'Se ha agregado el comentario'
+            }).finally(() => {
+                window.location.reload();
+            });
+        }, res => {
+            this.error = res.error.text;
+            this.loading = false;
+        });
     }
 
 
     resolveIssue() {
         this.comment.issueByReportNumber = this.issue.Report_Number;
         this.comment.description = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+        //this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
         this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto');
         this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
-
-
+        this.issueService.resolveIssue(this.issue);
 
     }
 }
