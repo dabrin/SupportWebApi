@@ -1,109 +1,91 @@
 <h2>Detalles del caso</h2>
 
 <hr />
-<div *ngIf="issContact">
+<div *ngIf="issueClient && user && issue">
     <div>
-        <label><b>Report Number: </b></label> {{issContact.reportNumber}}
+      <label><b>Report Number: </b></label> {{ issueClient.reportNumber }}
     </div>
     <div>
-        <label><b>Support: </b></label>
-        <select id="supports" name="supports">
-            <option *ngFor="let Support of supports | async" value="{{Support.Id_Supporter}}">{{Support.Name}}
-            </option>
+      <label><b>Nombre y apellidos: </b></label> {{user.name}} {{user.firstSurname}} {{user.secondSurname}}
+    </div>
+    <div>
+      <label><b>Correo del cliente: </b> {{ user.email }}</label>
+    </div>
+    <div>
+      <label><b>Teléfono del cliente: </b>{{user.phone}}</label>
+    </div>
+    <div>
+      <label><b>Dirección del cliente: </b> {{ user.address }}</label>
+    </div>
+    <div>
+      <label><b>Estado de la solicitud: </b>{{ issue.Status }}</label>
+    </div>
+    <div>
+      <label><b>Segundo contacto del cliente: </b> {{user.secondContact}}</label>
+    </div>
+    <div>
+      <label><b>Correo de la solicitud: </b>{{ issueClient.contactEmail }}</label>
+    </div>
+    <div>
+      <label><b>Teléfono de la solicitud: </b>{{ issueClient.contactPhone }}</label>
+    </div>
 
-        </select>
-
-    </div>
-
     <div>
-        <label><b>Clasificación: </b>{{issue.Classification}}</label>
-
-    </div>
-    <div>
-        <label><b>Nombre y apellidos:</b></label> {{user.name}} {{user.firstSurname}} {{user.secondSurname}}
-    </div>
-
-    <div>
-        <label><b>Correo:</b> {{user.email}}</label>
+      <label><b>Usuario de soporte asignado:&nbsp;</b> {{ issueClient.supportUserAssigned }}</label>
+      <select *ngIf="supports" id="supports" name="supports">
+        <option *ngFor="let Support of supports | async"
+                value="{{Support.Id_Supporter}}">{{Support.Name + " " + Support.First_SurName + " " + Support.Second_Surname}}
+        </option>
+      </select>
     </div>
     <div>
-        <label><b>Dirección del cliente.:</b> {{issContact.address}}</label>
+      <button *ngIf="issue.Status === 'Asignado'" type="button"
+              class="btn btn-primary" data-toggle="modal" data-target="#updateClassificationModal">
+        Iniciar Proceso
+      </button>
     </div>
+    <br>
     <div>
-        <label><b>Segundo contacto del cliente:</b> {{user.secondContact}}</label>
-    </div>
-    <div>
-        <label><b>Telefono:</b>{{user.phone}}</label>
-    </div>
-    <div>
-        <label><b>Estado de la solicitud:</b>{{issContact.status}}</label>
-        <br>
-
-        <button *ngIf="issContact.status as 'Ingresado'" type="button" class="btn btn-primary" data-toggle="modal"
-            data-target="#updateClassificationModal">
-            Iniciar Proceso
-        </button>
-    </div>
-    <div>
-        <label><b>Correo electrónico del contacto de la solicitud:</b>{{issContact.contactPhone}}</label>
-    </div>
-    <div>
-        <label><b>Teléfono del contacto de la solicitud:</b>{{issContact.contactEmail}}</label>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
+        Resolver solicitud
+      </button><br><br>
     </div>
     <div>
         <label><b>Comentarios:</b></label>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="let Comment of comments | async">
-                {{Comment.description}}
+            <li class="list-group-item" *ngFor="let comment of comments | async">
+              <b>Descripción: </b>{{ comment.description }}
+              <br>
+              <b>Fecha: </b>{{ comment.commentTime }}
             </li>
         </ul>
-
-
+    </div>
+    <br>
+    <div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
+        Agregar Comentario
+      </button><br><br>
     </div>
     <div>
         <label><b>Notas:</b></label>
-
-        <label><b>Comentarios:</b></label>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="let Note of notes | async">
-                {{Note.Description}}
+            <li class="list-group-item" *ngFor="let note of notes | async">
+                <b>Descripción: </b>{{note.Description}}
+                <br>
+                <b>Fecha: </b>{{note.Note_Time}}
             </li>
         </ul>
-
     </div>
-    <div>
-
-
-
-
-        <!--
-<button (click)="updateState()" class="btn btn-primary">Actualizar Clasificación</button><br><br>
-
-        -->
-    </div>
+    <br>
     <div>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNotesModal">
-            Agregar Notas
-        </button><br><br>
-    </div>
-    <div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
-            Agregar Comentarios
-        </button><br><br>
-    </div>
-
-    <div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
-            Resolver solicitud
+            Agregar Nota
         </button><br><br>
     </div>
 
 </div>
 
 <button (click)="list()" class="btn btn-danger">Volver a lista de casos</button>
-
-
-
 
 <!-- Modal -->
 <div class="modal" id="updateClassificationModal">

@@ -161,11 +161,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
-    <Compile Include="Controllers\IssueUserContactController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\security\LoginController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
@@ -193,14 +191,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\apiClientApp\CommentClientModel.cs" />
+    <Compile Include="Models\apiClientApp\UpdateStatusClientModel.cs" />
     <Compile Include="Models\IssueModel.cs" />
-    <Compile Include="Models\IssueUserContactModel.cs" />
+    <Compile Include="Models\apiClientApp\IssueClientModel.cs" />
     <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="Models\SupervisorModel.cs" />
     <Compile Include="Models\SupporterModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\apiClientApp\UserClientModel.cs" />
     <Compile Include="Note.cs">
       <DependentUpon>model.tt</DependentUpon>
     </Compile>

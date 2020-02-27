@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Issue } from '../../models/Issue';
 import { Support } from '../../models/Support';
-import { IssueContact } from '../../models/IssueContact';
+import {IssueClient} from '../../models/IssueClient';
 import { User } from '../../models/User';
 import { Comment } from '../../models/Comment';
 import { Note } from '../../models/Note';
 import { IssueService } from '../../services/Issue.service';
 import { SupportService } from '../../services/Support.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ListComponent } from '../list/list.component';
 import { Observable } from 'rxjs';
-import { NotExpr } from '@angular/compiler';
 
 @Component({
     selector: 'app-details',
@@ -19,83 +17,61 @@ import { NotExpr } from '@angular/compiler';
 })
 export class DetailsComponent implements OnInit {
     id: number;
-    str: string;
-    userId: number;
     issue: Issue;
-    issContact: IssueContact;
+    issueClient: IssueClient;
     user: User;
     comment: Comment;
     note: Note;
     comments: Observable<Comment[]>;
-    supports: Observable<Support[]>;
     notes: Observable<Note[]>;
+    supports: Observable<Support[]>;
     constructor(private route: ActivatedRoute, private router: Router,
-        private issueService: IssueService, private suppService: SupportService) { }
+                private issueService: IssueService, private suppService: SupportService) { }
 
     ngOnInit() {
-
         this.issue = new Issue();
-        this.issContact = new IssueContact();
+        this.issueClient = new IssueClient();
         this.user = new User();
         this.comment = new Comment();
+        this.note = new Note();
         this.id = this.route.snapshot.params.id;
 
-        this.note = new Note();
 
-
-        this.issueService.getIssueContact(this.id).subscribe(data => {
-            this.issContact = data;
-            console.log(this.issContact);
-            this.issueService.getUser(this.issContact.userById)
+        this.issueService.getIssueClient(this.id).subscribe(data => {
+            this.issueClient = data;
+            this.issueService.getUserClient(this.issueClient.userById)
+              // tslint:disable-next-line:no-shadowed-variable
                 .subscribe(data => {
-                    console.log(data);
                     this.user = data;
-                }, error => console.log())
-
+                }, error => console.log());
         }, error => console.log());
-
 
         this.issueService.getIssue(this.id)
             .subscribe(data => {
                 this.issue = data;
-                console.log(this.issue);
-
             }, error => console.log());
 
         this.reloadData();
-
-        //this.userId = this.issContact.userById;
-        //this.userId = this.route.snapshot.data.issContact.userById;
-
-
-
-
-
     }
 
     reloadData() {
         this.supports = this.suppService.getSupportList();
         this.comments = this.issueService.getCommentList(this.id);
         this.notes = this.issueService.getNote(this.id);
-
-
     }
 
     list() {
         this.router.navigate(['Issue']);
     }
 
-
     updateState() {
-        //this.router.navigate(['Issue']);
         this.issue.Status = 'Asignado';
         this.issue.Report_Number = this.id;
         console.log(this.issue);
-        this.issueService.updateIssue(this.id, this.issue);
-
+        //this.issueService.updateIssue(this.id, this.issue);
     }
     addComment() {
-        this.comment.Description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
+        this.comment.description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
         this.comment.issueByReportNumber = this.issue.Report_Number;
         this.comment.commentTime = '2020-02-23T15:48:23.933Z';
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
@@ -108,6 +84,4 @@ export class DetailsComponent implements OnInit {
         this.issueService.createNote(this.note).subscribe(() => 'Succces', error => 'Error');
 
     }
-
-
 }

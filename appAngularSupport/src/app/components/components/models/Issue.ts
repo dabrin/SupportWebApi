@@ -8,7 +8,6 @@ export class Issue {
     Resolution_Comment: string;
 
     getIdUser(): number {
-
         return this.userById;
     }
 }

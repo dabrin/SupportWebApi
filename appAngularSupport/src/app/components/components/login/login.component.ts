@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   error: string;
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router,
-    private authenticationService: AuthenticationService) { }
+              private router: Router,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.submitted = true;
-    if (this.form.invalid) return;
+    if (this.form.invalid) { return; }
     this.authenticationService.logout();
     this.authenticationService.authentication(this.email.value, this.pass.value)
       .pipe(first())
