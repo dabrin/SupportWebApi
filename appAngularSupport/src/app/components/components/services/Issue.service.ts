@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     providedIn: 'root'
 })
 export class IssueService {
-    private baseUrl = 'http://localhost:50044/api/issue/';
+    private baseUrl = 'http://localhost:50044/api/Issue/';
     private urlNote = 'http://localhost:50044/api/Note/';
 
 
@@ -45,13 +45,12 @@ export class IssueService {
         return this.http.get(`${this.urlNote}${id}`);
     }
 
-    updateStatusIssue(reportNumber: number, status: string) {
-        return this.http.put(this.baseUrl + 'UpdateStatus', { reportNumber, status });
+    updateStatusIssue(reportNumber: number, val: string): Observable<any> {
+      return this.http.put(this.baseUrl + 'UpdateStatus', {reportNumber, val});
     }
 
     getIssueList(): Observable<any> {
         return this.http.get(`${this.baseUrl}`);
-
     }
 
 
@@ -65,12 +64,9 @@ export class IssueService {
 
     }
 
-    resolveIssue(value: Issue) {
+    resolveIssue(id: number): Observable<any> {
 
-        return this.http.put(this.baseUrl, value).subscribe(
-            response => response as Issue,
-            error => console.log(error)
-        );;
+        return null;
     }
 
 

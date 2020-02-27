@@ -33,8 +33,8 @@
     </div>
 
     <div>
-        <label><b>Usuario de soporte asignado:&nbsp;</b> {{ issueClient.supportUserAssigned }}</label>
-        <select *ngIf="supports" id="supports" name="supports">
+        <label><b>Usuario de soporte asignado: </b> {{ issueClient.supportUserAssigned }}</label>
+        <select *ngIf="supports && !issue.userById" id="supports" name="supports">
             <option *ngFor="let Support of supports | async" value="{{Support.Id_Supporter}}">
                 {{Support.Name + " " + Support.First_SurName + " " + Support.Second_Surname}}
             </option>
@@ -42,10 +42,12 @@
     </div>
 
     <div *ngIf="issue.Status === 'Ingresado'">
-        <button type="button" class="btn btn-primary" (click)="updateStatus('En Progreso')">
-            Iniciar Proceso
-        </button>
-        <br>
+      <br>
+      <button type="button" class="btn btn-primary"
+              (click)="updateStatus('En Progreso')">
+        Iniciar Proceso
+      </button>
+      <br>
     </div>
     <div *ngIf="issue.Status === 'Ingresado'">
         <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>

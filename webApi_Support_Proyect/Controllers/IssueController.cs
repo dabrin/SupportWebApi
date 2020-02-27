@@ -201,8 +201,7 @@ namespace webApi_Support_Proyect.Controllers
                     HttpResponseMessage response = await client.PutAsJsonAsync(url, model);
                     response.EnsureSuccessStatusCode();
                     existingIssue.Status = model.val;
-                    ctx.SaveChanges();
-
+                    ctx.SaveChanges();
                 }
                 else
                 {
