@@ -185,7 +185,7 @@ namespace webApi_Support_Proyect.Controllers
 
         [HttpPut]
         [Route("api/Issue/UpdateStatus")]
-        public async Task<IHttpActionResult> PutStatusAsync(UpdateStatusClientModel model)
+        public async Task<IHttpActionResult> PutStatusAsync(UpdateIntStringClientModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
@@ -200,9 +200,49 @@ namespace webApi_Support_Proyect.Controllers
                     var client = new HttpClient();
                     HttpResponseMessage response = await client.PutAsJsonAsync(url, model);
                     response.EnsureSuccessStatusCode();
-                    existingIssue.Status = model.status;
-                    ctx.SaveChanges();
+                    existingIssue.Status = model.val;
+                    ctx.SaveChanges();
+
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            return Ok();
+        }
 
+        [HttpPut]
+        [Route("api/Issue/UpdateSupportAssigned")]
+        public async Task<IHttpActionResult> PutSupportAssignedsAsync(UpdateSupportAssignedModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Not a valid model");
+
+            using (var ctx = new Entities())
+            {
+                var existingIssue = ctx.Issue.Where(s => s.Report_Number == model.Report_Number)
+                                                        .FirstOrDefault<Issue>();
+                if (existingIssue != null)
+                {
+                    UpdateIntStringClientModel data = new UpdateIntStringClientModel();
+
+                    var supporter = ctx.Supporter.Where(s => s.Id == model.Id_Supporter)
+                        .FirstOrDefault<Supporter>();
+
+                    if (supporter != null)
+                    {
+                        data.reportNumber = model.Report_Number;
+                        data.val = supporter.Name + " " + supporter.First_Surname + " " + supporter.Second_Surname;
+                        string url = "http://localhost:8080/api/issue/updateSupporterAssigned";
+                        var client = new HttpClient();
+                        HttpResponseMessage response = await client.PutAsJsonAsync(url, data);
+                        response.EnsureSuccessStatusCode();
+                    }
+                    else return NotFound();
+
+                    existingIssue.Id_Supporter = model.Id_Supporter;
+                    ctx.SaveChanges();
                 }
                 else
                 {

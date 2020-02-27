@@ -10,6 +10,7 @@ import { IssueService } from '../../services/Issue.service';
 import { SupportService } from '../../services/Support.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import swal from 'sweetalert2';
 
 @Component({
     selector: 'app-details',
@@ -70,7 +71,18 @@ export class DetailsComponent implements OnInit {
     }
 
     updateStatus(status: string) {
-        this.issueService.updateStatusIssue(this.id, status);
+      this.loading = true;
+      this.issueService.updateStatusIssue(this.id, status).subscribe( data => {
+        swal.fire({
+          icon: 'success',
+          text: 'Se ha actualizado el estado'
+        }).finally(() => {
+          window.location.reload();
+        });
+      }, res => {
+        this.error = res.error.text;
+        this.loading = false;
+      });
     }
 
     addComment() {

@@ -40,18 +40,23 @@
             </option>
         </select>
     </div>
-    <div>
-        <button *ngIf="issue.Status === 'Asignado'" type="button" (click)="updateStatus('Asignado')">
-            Iniciar Proceso
-        </button>
-        <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
-        <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+
+    <div *ngIf="issue.Status === 'Ingresado'">
+      <button type="button" class="btn btn-primary"
+              (click)="updateStatus('En Progreso')">
+        Iniciar Proceso
+      </button>
+      <br>
     </div>
-    <br>
+    <div *ngIf="issue.Status === 'Ingresado'">
+      <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+      <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+      <br>
+    </div>
     <div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
-            Resolver solicitud
-        </button><br><br>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
+        Resolver solicitud
+      </button><br>
     </div>
     <div>
         <label><b>Comentarios:</b></label>

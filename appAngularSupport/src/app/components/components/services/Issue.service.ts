@@ -45,12 +45,8 @@ export class IssueService {
         return this.http.get(`${this.urlNote}${id}`);
     }
 
-    updateStatusIssue(reportNumber: number, status: string) {
-        return this.http.put(this.baseUrl + 'UpdateStatus', { reportNumber, status }).subscribe(
-            response => response as Issue,
-            error => console.log(error)
-        );
-
+    updateStatusIssue(reportNumber: number, status: string): Observable<any> {
+        return this.http.put(this.baseUrl + 'UpdateStatus', {reportNumber, status});
     }
 
     getIssueList(): Observable<any> {

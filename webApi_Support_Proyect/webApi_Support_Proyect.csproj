@@ -192,7 +192,8 @@
       <DependentUpon>model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\apiClientApp\CommentClientModel.cs" />
-    <Compile Include="Models\apiClientApp\UpdateStatusClientModel.cs" />
+    <Compile Include="Models\apiClientApp\UpdateIntStringClientModel.cs" />
+    <Compile Include="Models\apiClientApp\UpdateSupportAssignedModel.cs" />
     <Compile Include="Models\IssueModel.cs" />
     <Compile Include="Models\apiClientApp\IssueClientModel.cs" />
     <Compile Include="Models\NoteModel.cs" />
