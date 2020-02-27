@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Issue } from '../../models/Issue';
 import { Support } from '../../models/Support';
-import {IssueClient} from '../../models/IssueClient';
+import { IssueClient } from '../../models/IssueClient';
 import { User } from '../../models/User';
 import { Comment } from '../../models/Comment';
 import { Note } from '../../models/Note';
@@ -26,7 +26,7 @@ export class DetailsComponent implements OnInit {
     notes: Observable<Note[]>;
     supports: Observable<Support[]>;
     constructor(private route: ActivatedRoute, private router: Router,
-                private issueService: IssueService, private suppService: SupportService) { }
+        private issueService: IssueService, private suppService: SupportService) { }
 
     ngOnInit() {
         this.issue = new Issue();
@@ -40,7 +40,7 @@ export class DetailsComponent implements OnInit {
         this.issueService.getIssueClient(this.id).subscribe(data => {
             this.issueClient = data;
             this.issueService.getUserClient(this.issueClient.userById)
-              // tslint:disable-next-line:no-shadowed-variable
+                // tslint:disable-next-line:no-shadowed-variable
                 .subscribe(data => {
                     this.user = data;
                 }, error => console.log());
@@ -73,7 +73,7 @@ export class DetailsComponent implements OnInit {
     addComment() {
         this.comment.description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
         this.comment.issueByReportNumber = this.issue.Report_Number;
-        this.comment.commentTime = '2020-02-23T15:48:23.933Z';
+        //this.comment.commentTime = '2020-02-23T15:48:23.933Z';
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
 
     }
@@ -82,6 +82,22 @@ export class DetailsComponent implements OnInit {
         this.note.Note_Time = '2020-02-23T15:48:23.933Z';
         this.note.Description = (document.querySelector('#note') as HTMLTextAreaElement).value;
         this.issueService.createNote(this.note).subscribe(() => 'Succces', error => 'Error');
+
+    }
+
+
+    resolveIssue() {
+
+        //this.issue.Status = 'Resuelto';
+
+        this.comment.issueByReportNumber = this.issue.Report_Number;
+        this.comment.description = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+
+        this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
+        this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto');
+        this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+        //this.issueService.resolveIssue(this.id, this.issue);
+
 
     }
 }

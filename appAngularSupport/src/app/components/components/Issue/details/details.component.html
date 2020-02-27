@@ -3,68 +3,68 @@
 <hr />
 <div *ngIf="issueClient && user && issue">
     <div>
-      <label><b>Report Number: </b></label> {{ issueClient.reportNumber }}
+        <label><b>Report Number: </b></label> {{ issueClient.reportNumber }}
     </div>
     <div>
-      <label><b>Nombre y apellidos: </b></label> {{user.name}} {{user.firstSurname}} {{user.secondSurname}}
+        <label><b>Nombre y apellidos: </b></label> {{user.name}} {{user.firstSurname}} {{user.secondSurname}}
     </div>
     <div>
-      <label><b>Correo del cliente: </b> {{ user.email }}</label>
+        <label><b>Correo del cliente: </b> {{ user.email }}</label>
     </div>
     <div>
-      <label><b>Teléfono del cliente: </b>{{user.phone}}</label>
+        <label><b>Teléfono del cliente: </b>{{user.phone}}</label>
     </div>
     <div>
-      <label><b>Dirección del cliente: </b> {{ user.address }}</label>
+        <label><b>Dirección del cliente: </b> {{ user.address }}</label>
     </div>
     <div>
-      <label><b>Estado de la solicitud: </b>{{ issue.Status }}</label>
+        <label><b>Estado de la solicitud: </b>{{ issue.Status }}</label>
     </div>
     <div>
-      <label><b>Segundo contacto del cliente: </b> {{user.secondContact}}</label>
+        <label><b>Segundo contacto del cliente: </b> {{user.secondContact}}</label>
     </div>
     <div>
-      <label><b>Correo de la solicitud: </b>{{ issueClient.contactEmail }}</label>
+        <label><b>Correo de la solicitud: </b>{{ issueClient.contactEmail }}</label>
     </div>
     <div>
-      <label><b>Teléfono de la solicitud: </b>{{ issueClient.contactPhone }}</label>
+        <label><b>Teléfono de la solicitud: </b>{{ issueClient.contactPhone }}</label>
     </div>
 
     <div>
-      <label><b>Usuario de soporte asignado:&nbsp;</b> {{ issueClient.supportUserAssigned }}</label>
-      <select *ngIf="supports" id="supports" name="supports">
-        <option *ngFor="let Support of supports | async"
-                value="{{Support.Id_Supporter}}">{{Support.Name + " " + Support.First_SurName + " " + Support.Second_Surname}}
-        </option>
-      </select>
+        <label><b>Usuario de soporte asignado:&nbsp;</b> {{ issueClient.supportUserAssigned }}</label>
+        <select *ngIf="supports" id="supports" name="supports">
+            <option *ngFor="let Support of supports | async" value="{{Support.Id_Supporter}}">
+                {{Support.Name + " " + Support.First_SurName + " " + Support.Second_Surname}}
+            </option>
+        </select>
     </div>
     <div>
-      <button *ngIf="issue.Status === 'Asignado'" type="button"
-              class="btn btn-primary" data-toggle="modal" data-target="#updateClassificationModal">
-        Iniciar Proceso
-      </button>
+        <button *ngIf="issue.Status === 'Asignado'" type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#updateClassificationModal">
+            Iniciar Proceso
+        </button>
     </div>
     <br>
     <div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
-        Resolver solicitud
-      </button><br><br>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
+            Resolver solicitud
+        </button><br><br>
     </div>
     <div>
         <label><b>Comentarios:</b></label>
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let comment of comments | async">
-              <b>Descripción: </b>{{ comment.description }}
-              <br>
-              <b>Fecha: </b>{{ comment.commentTime }}
+                <b>Descripción: </b>{{ comment.description }}
+                <br>
+                <b>Fecha: </b>{{ comment.commentTime }}
             </li>
         </ul>
     </div>
     <br>
     <div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
-        Agregar Comentario
-      </button><br><br>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
+            Agregar Comentario
+        </button><br><br>
     </div>
     <div>
         <label><b>Notas:</b></label>
@@ -193,13 +193,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="sel1">Cambiar Estado</label>
-                    <select class="form-control" id="sel1">
-                        <option>Ingresado</option>
-                        <option>Asignado</option>
-                        <option>En Proceso</option>
-                        <option>Resuelto</option>
-                    </select>
+
                 </div>
                 <div class="form-group">
                     <label for="comment">Comentarios:</label>
@@ -209,7 +203,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Guardar Cambios</button>
+                <button (click)="resolveIssue()" type="button" class="btn btn-success">Guardar Cambios</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 

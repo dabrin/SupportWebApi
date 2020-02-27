@@ -34,7 +34,7 @@ export class IssueService {
     }
 
     getCommentList(id: number): Observable<any> {
-      return this.http.get(`${this.baseUrl + 'findCommentClientById/'}${id}`);
+        return this.http.get(`${this.baseUrl + 'findCommentClientById/'}${id}`);
     }
 
     createNote(value: Note) {
@@ -46,7 +46,7 @@ export class IssueService {
     }
 
     updateStatusIssue(reportNumber: number, status: string) {
-        return this.http.put(this.baseUrl + 'UpdateStatus', {reportNumber, status}).subscribe(
+        return this.http.put(this.baseUrl + 'UpdateStatus', { reportNumber, status }).subscribe(
             response => response as Issue,
             error => console.log(error)
         );
@@ -68,4 +68,11 @@ export class IssueService {
         return this.http.get(`${this.baseUrl + 'findUserClientById/'}${id}`);
 
     }
+
+    resolveIssue(id: number): Observable<any> {
+
+        return null;
+    }
+
+
 }

@@ -175,6 +175,7 @@ namespace webApi_Support_Proyect.Controllers
         [Route("api/Issue/CommentClient")]
         public async Task<IHttpActionResult> PostCommentClientAsync(CommentClientModel comment)
         {
+            comment.commentTime = DateTime.Today;
             string url = "http://localhost:8080/api/comment/";
             var client = new HttpClient();
             HttpResponseMessage response = await client.PostAsJsonAsync(url, comment);
