@@ -3,43 +3,74 @@
     <h3>Registro de Soportista</h3>
     <br>
     <!--<form [formGroup]="supportForm" (ngSubmit)="save()" #formDir="ngForm" novalidate>-->
-    <form>
+        <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="form-group">
+
             <label>Nombre: </label>
-            <input type="text" class="form-control" id="Name">
+            <input id="Name" type="text" formControlName="name" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && this.name.errors }" />
+            <div *ngIf="submitted && this.name.errors" class="invalid-feedback">
+                <div *ngIf="this.name.errors.required">Se requiere el nombre</div>
+                <div *ngIf="this.name.errors.pattern">Solo se permiten letras</div>
         </div>
+    </div>
+
         <div class="form-group">
             <label>Primer apellido: </label>
-            <input type="text" class="form-control" id="First_L" [ngClass]="{ 'is-invalid': submitted }">
-            <div *ngIf="submitted && this.email.errors" class="invalid-feedback">
-                <div *ngIf="this.email.errors.required">Se requiere el correo</div>
+            <input id="First_L" type="text" formControlName="First_L" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && this.First_L.errors }" />
+            <div *ngIf="submitted && this.First_L.errors" class="invalid-feedback">
+                <div *ngIf="this.First_L.errors.required">Se requiere el primer apellido</div>
+                <div *ngIf="this.First_L.errors.pattern">Solo se permiten letras</div>
             </div>
         </div>
+
         <div class="form-group">
             <label>Segundo apellido: </label>
-            <input type="text" class="form-control" id="Second_L">
+            <input id="Second_L" type="text" formControlName="Second_L" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && this.Second_L.errors }" />
+            <div *ngIf="submitted && this.Second_L.errors" class="invalid-feedback">
+                <div *ngIf="this.Second_L.errors.required">Se requiere el segundo apellido</div>
+                <div *ngIf="this.Second_L.errors.pattern">Solo se permiten letras</div>
         </div>
+    </div>
+
         <div class="form-group">
             <label>Correo electrónico: </label>
-            <input type="text" class="form-control" id="Email">
+            <input id="Email" type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && this.email.errors }" />
+     <div *ngIf="submitted && this.email.errors" class="invalid-feedback">
+       <div *ngIf="this.email.errors.required">Se requiere el correo</div>
+       <div *ngIf="this.email.errors.email">Debe ingresar un correo válido</div>
         </div>
+    </div>
+
         <div class="form-group">
             <label>Contraseña: </label>
-            <input type="text" class="form-control" id="Pass">
+            <input  id="Pass" type="password" formControlName="pass" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && this.pass.errors }" />
+     <div *ngIf="submitted && this.pass.errors" class="invalid-feedback">
+       <div *ngIf="this.pass.errors.required">Se requiere la contraseña</div>
         </div>
+    </div>
+
+<!--        
         <div class="form-group">
             <label>¿Es un soportista supervisor?</label>
             <div class="custom-control custom-radio">
-                <input type="checkbox" class="custom-control-input" [(ngModel)]="supervisor" (change)="foroMostrar()"
+                <input type="checkbox" class="custom-control-input"
                     id="defaultUncheckedR1" name="defaultExampleRadios">
                 <label class="custom-control-label" for="defaultUncheckedR1">Sí</label>
             </div>
-            <!--<div class="custom-control custom-radio">
+            <div class="custom-control custom-radio">
                 <input type="radio" class="custom-control-input" id="defaultUncheckedR2" name="defaultExampleRadios">
                 <label class="custom-control-label" for="defaultUncheckedR2">No</label>
-            </div> -->
-        </div>
-        <div class="form-group">
+            </div> 
+        </div> 
+
+        -->
+            
+        <div >
             <label>Servicios a los que da soporte</label>
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
@@ -58,9 +89,19 @@
                 <label class="custom-control-label" for="defaultUnchecked4">Telefonía Fija</label>
             </div>
         </div>
-        <div class="form-group">
+
+        <div class="form-group row">
+            <button class="btn btn-primary">Registrarse</button>
+          </div>
+
+        <!-- <div class="form-group">
             <button (click)="createSupport()" class="btn btn-primary">Save</button>
             <button class="btn" (click)="cancel()">Cancel</button>
         </div>
+    -->
+
+        <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+          <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+
     </form>
 </div>
