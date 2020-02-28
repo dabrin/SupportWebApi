@@ -22,6 +22,7 @@
     <div class="form-group ">
       <button class="btn btn-primary">Ingresar</button>
     </div>
-  
+    <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+          <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
   </form>
 </div>
