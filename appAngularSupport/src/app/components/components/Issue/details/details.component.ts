@@ -11,6 +11,7 @@ import { SupportService } from '../../services/Support.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import swal from 'sweetalert2';
+import {map} from 'rxjs/operators';
 
 @Component({
     selector: 'app-details',
@@ -28,11 +29,28 @@ export class DetailsComponent implements OnInit {
     comments: Observable<Comment[]>;
     notes: Observable<Note[]>;
     supports: Observable<Support[]>;
-    loading: boolean;
-    error: null;
+
+    loadingUpdateStatus: boolean;
+    errorUpdateStatus: null;
+
+    loadingSetSupporter: boolean;
+    validSelectSupport = false;
+    errorSelectSupport = null;
+
+    loadingResolveIssue: boolean;
+    validResolveIssue = false;
+    errorResolveIssue = null;
+
+    loadingAddComment: boolean;
+    validAddComment = false;
+    errorAddComment = null;
+
+    loadingAddNote: boolean;
+    validAddNote = false;
+    errorAddNote = null;
 
     constructor(private route: ActivatedRoute, private router: Router,
-        private issueService: IssueService, private suppService: SupportService) { }
+                private issueService: IssueService, private suppService: SupportService) { }
 
     ngOnInit() {
         this.issue = new Issue();
@@ -71,7 +89,7 @@ export class DetailsComponent implements OnInit {
     }
 
     updateStatus(status: string) {
-        this.loading = true;
+        this.loadingUpdateStatus = true;
         this.issueService.updateStatusIssue(this.id, status).subscribe(data => {
             swal.fire({
                 icon: 'success',
@@ -80,63 +98,96 @@ export class DetailsComponent implements OnInit {
                 window.location.reload();
             });
         }, res => {
-            this.error = res.error.text;
-            this.loading = false;
+            this.errorUpdateStatus = res.error.text;
+            this.loadingUpdateStatus = false;
         });
     }
 
     addComment() {
         this.comment.description = (document.querySelector('#comment') as HTMLTextAreaElement).value;
         this.comment.issueByReportNumber = this.issue.Report_Number;
-        this.issueService.createCommet(this.comment).subscribe(() => {
+        if (this.comment.description === '') { this.validAddComment = true; } else {
+          this.loadingAddComment = true;
+          this.issueService.createCommet(this.comment).subscribe(() => {
             swal.fire({
-                icon: 'success',
-                text: 'Se ha agregado el comentario'
+              icon: 'success',
+              text: 'Se ha agregado el comentario'
             }).finally(() => {
-                window.location.reload();
+              window.location.reload();
             });
-        }, res => {
-            this.error = res.error.text;
-            this.loading = false;
-        });
+          }, res => {
+            this.errorAddComment = res.error.text;
+            this.loadingAddComment = false;
+          });
+        }
     }
+
     addNote() {
         this.note.Report_Number = this.issue.Report_Number;
-        this.note.Note_Time = '2020-02-23T15:48:23.933Z';
         this.note.Description = (document.querySelector('#note') as HTMLTextAreaElement).value;
-        this.issueService.createNote(this.note).subscribe(() => {
+        if (this.note.Description === '') { this.validAddNote = true; } else {
+          this.loadingAddNote = true;
+          this.issueService.createNote(this.note).subscribe(() => {
             swal.fire({
-                icon: 'success',
-                text: 'Se ha agregado el comentario'
+              icon: 'success',
+              text: 'Se ha agregado la nota'
             }).finally(() => {
-                window.location.reload();
+              window.location.reload();
             });
-        }, res => {
-            this.error = res.error.text;
-            this.loading = false;
-        });
+          }, res => {
+            this.errorAddNote = res.error.text;
+            this.loadingAddNote = false;
+          });
+        }
     }
 
+    setSupportUser() {
+      const idSupportUser = (document.querySelector('#support') as HTMLSelectElement).value;
+      if (idSupportUser === '') { this.validSelectSupport = true; } else {
+        this.loadingSetSupporter = true;
+        this.validSelectSupport = false;
+        this.issueService.updateStatusIssue(this.id, 'Asignado').subscribe(
+          data => {
+            this.issueService.setSupportUser(this.id, idSupportUser).subscribe(
+              // tslint:disable-next-line:no-shadowed-variable
+              data => {
+                swal.fire({
+                  icon: 'success',
+                  text: 'Se ha seleccionado un soportista para la solicitud'
+                }).finally(() => {
+                  window.location.reload();
+                });
+              }, res => {
+                this.loadingSetSupporter = false;
+                this.errorSelectSupport = res.error.text;
+              });
+          }, res => {
+            this.loadingSetSupporter = false;
+            this.errorSelectSupport = res.error.text;
+          });
+      }
+    }
 
     resolveIssue() {
-        this.comment.issueByReportNumber = this.issue.Report_Number;
         this.comment.description = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
-        this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
-        this.issueService.resolveIssue(this.issue).subscribe(() => 'Succces', error => 'Error');
-        //this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value
-        this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
-        this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto').subscribe(data => {
+        if (this.comment.description === '') { this.validResolveIssue = true; } else {
+          this.validResolveIssue = false;
+          this.loadingResolveIssue = true;
+          this.comment.issueByReportNumber = this.issue.Report_Number;
+          this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+          this.issueService.resolveIssue(this.issue).subscribe(() => 'Succces', error => 'Error');
+          this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
+          this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto').subscribe(data => {
             swal.fire({
-                icon: 'success',
-                text: 'Se ha resuelto el caso '
+              icon: 'success',
+              text: 'Se ha resuelto el caso '
             }).finally(() => {
-                window.location.reload();
+              window.location.reload();
             });
-        }, res => {
-            this.error = res.error.text;
-            this.loading = false;
-        });;
-
-
+          }, res => {
+            this.errorResolveIssue = res.error.text;
+            this.loadingResolveIssue = false;
+          });
+        }
     }
 }

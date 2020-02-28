@@ -33,33 +33,33 @@
     </div>
 
     <div>
-        <label><b>Usuario de soporte asignado: </b> {{ issueClient.supportUserAssigned }}</label>
-        <select *ngIf="supports && !issue.userById" id="supports" name="supports">
+        <label *ngIf="issue.Status !== 'Ingresado'"><b>Usuario de soporte asignado: </b>
+          {{ issueClient.supportUserAssigned }} </label>
+        <label *ngIf="supports && issue.Status === 'Ingresado'" style="margin-right: 5px"><b>Usuario de soporte asignado:</b></label>
+        <select *ngIf="supports && issue.Status === 'Ingresado'" id="support" name="support"
+                style="margin-right: 5px" class="custom-select-sm custom-select">
+            <option value="" selected disabled hidden>Seleccione un soportista</option>
             <option *ngFor="let Support of supports | async" value="{{Support.Id_Supporter}}">
                 {{Support.Name + " " + Support.First_SurName + " " + Support.Second_Surname}}
             </option>
         </select>
+        <div *ngIf="this.validSelectSupport" class="text-danger">
+          <p>Debe seleccionar un servicio</p>
+        </div>
+        <button class="btn btn-primary" (click)="setSupportUser()" style="margin-top: 5px"
+              *ngIf="supports && issue.Status === 'Ingresado'">Seleccionar soportista</button>
+      <div *ngIf="loadingSetSupporter || errorSelectSupport">
+        <br>
+        <div *ngIf="loadingSetSupporter" class="alert alert-info">Porfavor espere...</div>
+        <div *ngIf="errorSelectSupport" class="alert alert-danger">{{errorUpdateStatus}}</div>
+        <br>
+      </div>
     </div>
 
-    <div *ngIf="issue.Status === 'Ingresado'">
-        <br>
-        <button type="button" class="btn btn-primary" (click)="updateStatus('En Progreso')">
-            Iniciar Proceso
-        </button>
-        <br>
-    </div>
-    <div *ngIf="issue.Status === 'Ingresado'">
-        <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
-        <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
-        <br>
-    </div>
-    <div *ngIf="issue.Status !== 'Resuelto'">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
-            Resolver solicitud
-        </button><br>
-    </div>
     <div>
+        <br>
         <label><b>Comentarios:</b></label>
+        <hr>
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let comment of comments | async">
                 <b>Descripción: </b>{{ comment.description }}
@@ -72,10 +72,14 @@
     <div *ngIf="issue.Status !== 'Resuelto'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
             Agregar Comentario
-        </button><br><br>
+        </button>
+        <br>
+        <br>
     </div>
+
     <div>
         <label><b>Notas:</b></label>
+        <hr>
         <ul class="list-group">
             <li class="list-group-item" *ngFor="let note of notes | async">
                 <b>Descripción: </b>{{note.Description}}
@@ -85,15 +89,42 @@
         </ul>
     </div>
     <br>
+
     <div *ngIf="issue.Status !== 'Resuelto'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNotesModal">
             Agregar Nota
-        </button><br><br>
+        </button>
+        <br>
+        <br>
     </div>
 
-</div>
+    <div>
+      <h3>Opciones:</h3>
+      <hr>
 
-<button (click)="list()" class="btn btn-danger">Volver a lista de casos</button>
+      <div *ngIf="issue.Status === 'Asignado'" style="margin-top: 15px">
+        <button type="button" class="btn btn-success" (click)="updateStatus('En Progreso')">
+          Iniciar Proceso
+        </button>
+        <div>
+          <div *ngIf="loadingUpdateStatus" class="alert alert-info">Porfavor espere...</div>
+          <div *ngIf="errorUpdateStatus" class="alert alert-danger">{{errorUpdateStatus}}</div>
+        </div>
+        <br>
+      </div>
+
+      <div *ngIf="issue.Status !== 'Resuelto'">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#resolveIssueModal">
+          Resolver solicitud
+        </button>
+      </div>
+      <br>
+    </div>
+
+    <div>
+      <button (click)="list()" class="btn btn-danger">Volver a lista de casos</button>
+    </div>
+</div>
 
 <div class="modal" id="addNotesModal">
     <div class="modal-dialog">
@@ -101,26 +132,28 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Asignar Notas a la solicitud</h4>
+                <h4 class="modal-title">Asignar nota</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="comment">Notas:</label>
-                    <textarea class="form-control" rows="5" id="note"></textarea>
+                    <div class="form-group">
+                      <label for="comment">Nota:</label>
+                      <textarea class="form-control" rows="5" id="note"></textarea>
+                    </div>
+                    <div class="form-group" *ngIf="loadingAddNote || errorAddNote || validAddNote">
+                      <div *ngIf="loadingAddNote" class="alert alert-info">Porfavor espere...</div>
+                      <div *ngIf="validAddNote" class="alert alert-danger">Se requiere una nota</div>
+                      <div *ngIf="errorAddNote" class="alert alert-danger">{{errorResolveIssue}}</div>
+                    </div>
                 </div>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button (click)="addNote()" type="button" class="btn btn-success">Guardar Cambios</button>
-                <div>
-                    <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
-                    <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
-                    <br>
-                </div>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
@@ -134,15 +167,22 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Agregar Comentarios a la solicitud</h4>
+                <h4 class="modal-title">Agregar comentario</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="comment">Comentarios:</label>
-                    <textarea type="text" class="form-control" rows="5" id="comment"></textarea>
+                    <div class="form-group">
+                      <label for="comment">Comentario:</label>
+                      <textarea type="text" class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    <div class="form-group" *ngIf="loadingAddComment || errorAddComment || validAddComment">
+                      <div *ngIf="loadingAddComment" class="alert alert-info">Porfavor espere...</div>
+                      <div *ngIf="validAddComment" class="alert alert-danger">Se requiere un comentario</div>
+                      <div *ngIf="errorAddComment" class="alert alert-danger">{{errorResolveIssue}}</div>
+                    </div>
                 </div>
             </div>
 
@@ -163,18 +203,22 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Agregar Comentarios a la solicitud</h4>
+                <h4 class="modal-title">Resolver solicitud</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="form-group">
-
-                </div>
-                <div class="form-group">
-                    <label for="comment">Comentarios:</label>
+                  <div class="form-group">
+                    <label for="comment">Comentario de resolución:</label>
                     <textarea class="form-control" rows="5" id="resolComment"></textarea>
+                  </div>
+                  <div class="form-group" *ngIf="loadingResolveIssue || errorResolveIssue || validResolveIssue">
+                    <div *ngIf="loadingResolveIssue" class="alert alert-info">Porfavor espere...</div>
+                    <div *ngIf="validResolveIssue" class="alert alert-danger">Se requiere un comentario</div>
+                    <div *ngIf="errorResolveIssue" class="alert alert-danger">{{errorResolveIssue}}</div>
+                    </div>
                 </div>
             </div>
 
