@@ -9,6 +9,8 @@ import { Support } from '../models/Support';
 })
 export class SupportService {
     private baseUrl = 'http://localhost:50044/api/Supporter/';
+    private urlSupervisor = 'http://localhost:50044/api/supervisor/';
+
     //private urlClient = '';
     constructor(private http: HttpClient) { }
 
@@ -20,6 +22,12 @@ export class SupportService {
     createSupport(supp: Support): Observable<any> {
         return this.http.post(`${this.baseUrl}`, supp);
     }
+
+    createSupervisor(supp: Support): Observable<any> {
+        return this.http.post(`${this.urlSupervisor}`, supp);
+    }
+
+
 
 
 

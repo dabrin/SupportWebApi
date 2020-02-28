@@ -12,6 +12,9 @@ import { SupportService } from '../services/Support.service';
 })
 export class SupportComponent implements OnInit {
 
+
+    support: boolean;
+    supervisor: boolean;
     supportForm: FormGroup;
     Pass = new FormControl('', [Validators.required]);
     Name = new FormControl('', [Validators.required]);
@@ -43,9 +46,26 @@ export class SupportComponent implements OnInit {
             Email: Email
 
         })
-        this.supportService.createSupport(this.supportForm.value).subscribe(() => 'Succces', error => 'Error')
 
+        if (this.supervisor == true) {
+            console.log('superviso');
+            this.supportService.createSupervisor(this.supportForm.value).subscribe(() => 'Succces', error => 'Error')
+
+        } else
+            this.supportService.createSupport(this.supportForm.value).subscribe(() => 'Succces', error => 'Error')
+
+        console.log('Easy')
     }
+    foroMostrar() {
+
+        if (this.supervisor == true) {
+            console.log('superviso');
+
+        } else
+            console.log('No mames');
+    }
+
+
 
 
 

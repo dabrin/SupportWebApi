@@ -18,11 +18,12 @@ namespace webApi_Support_Proyect.Controllers
             {
                 ctx.Supervisor.Add(new Supervisor()
                 {
-                    Id = sup.Id_Supervisor,
+                    //Id = sup.Id_Supervisor,
                     Pass = sup.Pass,
                     Name = sup.Name,
                     First_Surname = sup.First_surname,
-                    Second_Surname = sup.Second_Surname
+                    Second_Surname = sup.Second_Surname,
+                    Email=sup.Email
                 });
                 ctx.SaveChanges();
             }

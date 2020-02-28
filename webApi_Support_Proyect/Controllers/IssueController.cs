@@ -64,7 +64,6 @@ namespace webApi_Support_Proyect.Controllers
 
         public IHttpActionResult GetById(int id)
         {
-
             IssueModel issue = null;
             using (var context = new Entities())
             {
@@ -156,7 +155,7 @@ namespace webApi_Support_Proyect.Controllers
                         Resolution_Comment = issueItem.Resolution_Comment
 
 
-                    }).ToList<IssueModel>();
+                    }).OrderByDescending(x => x.Report_Time).ToList<IssueModel>();
             }
             if (issues.Count == 0)
             {

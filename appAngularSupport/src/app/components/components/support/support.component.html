@@ -30,13 +30,14 @@
         <div class="form-group">
             <label>¿Es un soportista supervisor?</label>
             <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="defaultUncheckedR1" name="defaultExampleRadios">
+                <input type="checkbox" class="custom-control-input" [(ngModel)]="supervisor" (change)="foroMostrar()"
+                    id="defaultUncheckedR1" name="defaultExampleRadios">
                 <label class="custom-control-label" for="defaultUncheckedR1">Sí</label>
             </div>
-            <div class="custom-control custom-radio">
+            <!--<div class="custom-control custom-radio">
                 <input type="radio" class="custom-control-input" id="defaultUncheckedR2" name="defaultExampleRadios">
                 <label class="custom-control-label" for="defaultUncheckedR2">No</label>
-            </div>
+            </div> -->
         </div>
         <div class="form-group">
             <label>Servicios a los que da soporte</label>
