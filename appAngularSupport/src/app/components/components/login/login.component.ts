@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         });
       },
       res => {
-        this.error = res.error.text;
+        this.error = res.error;
         this.unBlockForm();
       });
 }

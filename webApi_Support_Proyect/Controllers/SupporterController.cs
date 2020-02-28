@@ -20,17 +20,17 @@ namespace webApi_Support_Proyect.Controllers
                 var existSupport = ctx.Supporter.Where(s => s.Email == supp.Email).FirstOrDefault<Supporter>();
                 if (existSupport != null)
                 {
-                    var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                    var resp = new HttpResponseMessage(HttpStatusCode.Conflict)
                     {
                         Content = new StringContent(string.Format("El correo ya existe")),
                         ReasonPhrase = "El correo ya existe"
                     };
-                    throw new HttpResponseException(resp);
+                    return ResponseMessage(resp);
                 }
 
                 ctx.Supporter.Add(new Supporter()
                 {
-                    Id_Supervisor = 1,
+                    Id_Supervisor = supp.Id_Supervisor,
                     Pass = supp.Pass,
                     Name = supp.Name,
                     First_Surname = supp.First_SurName,

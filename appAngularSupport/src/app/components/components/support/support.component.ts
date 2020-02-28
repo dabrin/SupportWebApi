@@ -62,6 +62,7 @@ export class SupportComponent implements OnInit {
     user.Name = this.name.value;
     user.First_SurName = this.First_L.value;
     user.Second_Surname = this.Second_L.value;
+    user.Id_Supervisor = this.auth.userId;
     this.supportService.createSupport(user).subscribe(data => {
       swal.fire({
         icon: 'success',
@@ -70,7 +71,7 @@ export class SupportComponent implements OnInit {
         this.router.navigate(['/Issue']);
       });
     }, res => {
-      this.error = res.error.text;
+      this.error = res.error;
       this.unBlockForm();
     });
   }

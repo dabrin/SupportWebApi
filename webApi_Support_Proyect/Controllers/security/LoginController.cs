@@ -49,7 +49,12 @@ namespace webApi_Support_Proyect.Controllers
                 sessionData.Token = "";
                 return Json(sessionData);
             }
-            return NotFound();
+            var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+            {
+                Content = new StringContent(string.Format("No se encuentra en usuario")),
+                ReasonPhrase = "No se encuentra en usuario"
+            };
+            return ResponseMessage(resp);
         }
     }
 
