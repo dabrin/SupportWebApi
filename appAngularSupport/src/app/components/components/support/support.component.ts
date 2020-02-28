@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Support } from '../models/Support';
 import { SupportService } from '../services/Support.service';
 import swal from "sweetalert2";
+import {AuthenticationService} from '../services/authentication.service';
 
 //JALAR EL SERVICIO
 
@@ -30,10 +31,11 @@ export class SupportComponent implements OnInit {
    error = '';
    loading: boolean = false;
 
-  
+
         constructor(private formBuilder: FormBuilder,
             private router: Router,
-            private supportService: SupportService) {
+            private supportService: SupportService, private auth: AuthenticationService) {
+          if (!this.auth.isUserLoggedIn()) { this.router.navigate(['login']); }
   this.form = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     pass: ['', [Validators.required]],
@@ -48,13 +50,13 @@ export class SupportComponent implements OnInit {
 
     }
 
-    
+
   submit() {
     this.error = '';
     this.submitted = true;
-    if (this.form.invalid || this.loading) return;
+    if (this.form.invalid || this.loading) { return; }
     this.blockForm();
-    let user = new Support();
+    const user = new Support();
     user.Email = this.email.value;
     user.Pass = this.pass.value;
     user.Name = this.name.value;
@@ -65,12 +67,12 @@ export class SupportComponent implements OnInit {
         icon: 'success',
         text: 'El registro fue éxitoso'
       }).finally(() => {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/Issue']);
       });
     }, res => {
       this.error = res.error.text;
       this.unBlockForm();
-    })
+    });
   }
 
   blockForm() {
@@ -88,39 +90,5 @@ export class SupportComponent implements OnInit {
   get name() { return this.form.get('name'); }
   get First_L() { return this.form.get('First_L'); }
   get Second_L() { return this.form.get('Second_L'); }
-
-/*
-    createSupport() {
-
-        const Pass = (document.querySelector('#Pass') as HTMLInputElement).value
-        const Name = (document.querySelector('#Name') as HTMLInputElement).value
-        const First_SurName = (document.querySelector('#First_L') as HTMLInputElement).value
-        const Second_Surname = (document.querySelector('#Second_L') as HTMLInputElement).value
-        const Email = (document.querySelector('#Email') as HTMLInputElement).value
-
-        this.supportForm = this.formBuilder.group({
-            Pass: Pass,
-            Name: Name,
-            First_SurName: First_SurName,
-            Second_Surname: Second_Surname,
-            Email: Email
-
-        })
-
-        if (this.supervisor == true) {
-            console.log('superviso');
-            this.supportService.createSupervisor(this.supportForm.value).subscribe(() => 'Succces', error => 'Error')
-
-        } else
-            this.supportService.createSupport(this.supportForm.value).subscribe(() => 'Succces', error => 'Error')
-
-        console.log('Easy')
-    }
-    */
- 
-
-
-
-
 
 }

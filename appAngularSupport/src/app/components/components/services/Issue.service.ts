@@ -14,10 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class IssueService {
     private baseUrl = 'http://localhost:50044/api/Issue/';
     private urlNote = 'http://localhost:50044/api/Note/';
-
-
-
     issue: Issue;
+
     constructor(private http: HttpClient, private router: Router) { }
 
     getIssue(id: number): Observable<any> {
@@ -58,6 +56,9 @@ export class IssueService {
         return this.http.get(`${this.baseUrl}`);
     }
 
+    getIssueListBySupportId(id: number): Observable<any> {
+      return this.http.get(`${this.baseUrl + 'findIssueBySuppId/' + id}`);
+    }
 
     getIssueClient(id: number): Observable<any> {
         return this.http.get(`${this.baseUrl + 'findIssueClient/'}${id}`);

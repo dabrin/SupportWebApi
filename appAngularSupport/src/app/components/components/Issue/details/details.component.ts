@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import swal from 'sweetalert2';
 import {map} from 'rxjs/operators';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
     selector: 'app-details',
@@ -50,7 +51,9 @@ export class DetailsComponent implements OnInit {
     errorAddNote = null;
 
     constructor(private route: ActivatedRoute, private router: Router,
-                private issueService: IssueService, private suppService: SupportService) { }
+                private issueService: IssueService, private suppService: SupportService, private auth: AuthenticationService) {
+      if (!this.auth.isUserLoggedIn()) { this.router.navigate(['login']); }
+    }
 
     ngOnInit() {
         this.issue = new Issue();
@@ -169,7 +172,7 @@ export class DetailsComponent implements OnInit {
     }
 
     resolveIssue() {
-        this.comment.description = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+        this.comment.description = 'Comentario de resolución: ' + (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
         if (this.comment.description === '') { this.validResolveIssue = true; } else {
           this.validResolveIssue = false;
           this.loadingResolveIssue = true;

@@ -45,7 +45,7 @@
         </div>
     </div>
 
-        <div class="form-group">
+          <div class="form-group">
             <label>Contraseña: </label>
             <input  id="Pass" type="password" formControlName="pass" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && this.pass.errors }" />
@@ -55,18 +55,14 @@
     </div>
 
 
-        <div class="form-group row">
+        <div class="form-group">
             <button class="btn btn-primary">Registrarse</button>
           </div>
 
-        <!-- <div class="form-group">
-            <button (click)="createSupport()" class="btn btn-primary">Save</button>
-            <button class="btn" (click)="cancel()">Cancel</button>
-        </div>
-    -->
-
-        <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
-          <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+          <div class="form-group">
+            <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
+            <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
+          </div>
 
     </form>
 </div>

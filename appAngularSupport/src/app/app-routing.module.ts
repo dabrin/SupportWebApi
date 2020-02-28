@@ -10,10 +10,9 @@ import { LoginComponent } from './components/components/login/login.component';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'Issue', pathMatch: 'full' },
   { path: 'Issue', component: ListComponent },
   { path: 'CreateSupport', component: SupportComponent },
-  { path: 'details/:id', component: DetailsComponent },
   { path: 'details/:id', component: DetailsComponent },
   { path: 'login', component: LoginComponent }
 ];

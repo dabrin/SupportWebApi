@@ -69,7 +69,7 @@
         </ul>
     </div>
     <br>
-    <div *ngIf="issue.Status !== 'Resuelto'">
+    <div *ngIf="issue.Status == 'En Progreso' && this.auth.role == 'USO'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
             Agregar Comentario
         </button>
@@ -90,7 +90,7 @@
     </div>
     <br>
 
-    <div *ngIf="issue.Status !== 'Resuelto'">
+    <div *ngIf="issue.Status !== 'Resuelto' && this.auth.role == 'USO'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNotesModal">
             Agregar Nota
         </button>
@@ -102,7 +102,7 @@
       <h3>Opciones:</h3>
       <hr>
 
-      <div *ngIf="issue.Status === 'Asignado'" style="margin-top: 15px">
+      <div *ngIf="issue.Status === 'Asignado' && this.auth.role == 'USO'" style="margin-top: 15px">
         <button type="button" class="btn btn-success" (click)="updateStatus('En Progreso')">
           Iniciar Proceso
         </button>
@@ -113,7 +113,7 @@
         <br>
       </div>
 
-      <div *ngIf="issue.Status !== 'Resuelto'">
+      <div *ngIf="issue.Status == 'En Progreso' && this.auth.role == 'USO'">
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#resolveIssueModal">
           Resolver solicitud
         </button>

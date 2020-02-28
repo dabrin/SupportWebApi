@@ -8,22 +8,24 @@
         <a routerLink="" class="nav-link" routerLinkActive="active"><span class="fas fa-home"></span>Home</a>
       </li>
       <li class="nav-item">
-        <a routerLink="add" class="nav-link" routerLinkActive="active" [routerLink]="['CreateSupport']">Registrar
-          soportista</a>
+        <a routerLink="add" class="nav-link" routerLinkActive="active" [routerLink]="['CreateSupport']"
+        *ngIf="this.auth.isUserLoggedIn() && this.auth.role == 'USU'">Registrar soportista</a>
       </li>
       <li class="nav-item">
-        <a routerLink="add" class="nav-link" routerLinkActive="active" [routerLink]="['Issue']">
-          Solicitudes</a>
+        <a routerLink="add" class="nav-link" routerLinkActive="active" [routerLink]="['Issue']"
+           *ngIf="this.auth.isUserLoggedIn()">Solicitudes</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a routerLink="add" class="nav-link" routerLinkActive="active" [routerLink]="['login']">Iniciar Sesión
+          <a routerLink="add" class="nav-link" routerLinkActive="active" [routerLink]="['login']"
+             *ngIf="!this.auth.isUserLoggedIn()">Iniciar Sesión
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="add" class="nav-link pull-right" routerLinkActive="active" (click)="logout()">Salir</a>
+          <a routerLink="add" class="nav-link pull-right" routerLinkActive="active" (click)="logout()"
+             *ngIf="this.auth.isUserLoggedIn()">Salir</a>
         </li>
       </ul>
     </form>

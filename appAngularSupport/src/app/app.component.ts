@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from "../../src/app/components/components/services/authentication.service";
-import { Router } from "@angular/router";
+import { AuthenticationService } from '../../src/app/components/components/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,13 @@ import { Router } from "@angular/router";
 })
 export class AppComponent {
 
-  constructor(private authenticationService: AuthenticationService,
-    private router: Router) { }
+  constructor(private auth: AuthenticationService,
+              private router: Router) { }
   title = 'appAngularSupport';
 
   logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['login']);
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }
 

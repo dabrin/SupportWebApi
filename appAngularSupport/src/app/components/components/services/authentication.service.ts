@@ -14,7 +14,8 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {
     if (this.isUserLoggedIn()) {
       const sessionData: Session = JSON.parse(sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME));
-      this.userId = sessionData.UserId;
+      console.log(sessionData.IdUser);
+      this.userId = sessionData.IdUser;
       this.role = sessionData.Role;
       this.token = sessionData.Token;
     }
@@ -32,7 +33,7 @@ export class AuthenticationService {
   registerSuccessfulLogin(sessionData: Session) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME,
       JSON.stringify(sessionData));
-    this.userId = sessionData.UserId;
+    this.userId = sessionData.IdUser;
     this.token = sessionData.Token;
     this.role = sessionData.Role;
   }
@@ -58,7 +59,7 @@ export class AuthenticationService {
 }
 
 interface Session {
-  UserId: number;
+  IdUser: number;
   Role: string;
   Token: string;
 }
