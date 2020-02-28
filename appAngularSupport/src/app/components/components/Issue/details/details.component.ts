@@ -121,11 +121,22 @@ export class DetailsComponent implements OnInit {
     resolveIssue() {
         this.comment.issueByReportNumber = this.issue.Report_Number;
         this.comment.description = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+        this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
+        this.issueService.resolveIssue(this.issue).subscribe(() => 'Succces', error => 'Error');
         //this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value
         this.issueService.createCommet(this.comment).subscribe(() => 'Succces', error => 'Error');
-        this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto');
-        this.issue.Resolution_Comment = (document.querySelector('#resolComment') as HTMLTextAreaElement).value;
-        this.issueService.resolveIssue(this.issue);
+        this.issueService.updateStatusIssue(this.issue.Report_Number, 'Resuelto').subscribe(data => {
+            swal.fire({
+                icon: 'success',
+                text: 'Se ha resuelto el caso '
+            }).finally(() => {
+                window.location.reload();
+            });
+        }, res => {
+            this.error = res.error.text;
+            this.loading = false;
+        });;
+
 
     }
 }

@@ -7,16 +7,16 @@
             <thead>
                 <tr>
                     <th>Numero de reporte</th>
-                    <th>Id Soportista</th>
+                    <th>Fecha de reporte</th>
                     <th>Clasificación</th>
-                    <th>Estadp</th>
-                    <th>Comentarios</th>
+                    <th>Estado</th>
+                    <th>Comentarios de resolución</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let issue of issues | async">
                     <td>{{issue.Report_Number}}</td>
-                    <td>{{issue.Id_support}}</td>
+                    <td>{{issue.Report_Time}}</td>
                     <td>{{issue.Classification}}</td>
                     <td>{{issue.Status}}</td>
                     <td>{{issue.Resolution_Comment}}</td>

@@ -28,7 +28,7 @@ namespace webApi_Support_Proyect.Controllers
                     Id_Supporter = null,
                     Classification = "Media",
                     Status = "Ingresado",
-                    Report_Time = DateTime.Today,
+                    Report_Time = DateTime.Now,
                     Resolution_Comment = "Nuevo caso"
                 });
                 ctx.SaveChanges();
@@ -51,7 +51,7 @@ namespace webApi_Support_Proyect.Controllers
                         Status = issueItem.Status,
                         Report_Time = issueItem.Report_Time,
                         Resolution_Comment = issueItem.Resolution_Comment,
-                    }).ToList<IssueModel>();
+                    }).OrderByDescending(x=>x.Report_Time).ToList<IssueModel>();
             }
             if (issues.Count == 0)
             {
@@ -138,6 +138,37 @@ namespace webApi_Support_Proyect.Controllers
         }
 
         [HttpGet]
+        [Route("api/Issue/findIssueBySuppId/{id}")]
+        public IHttpActionResult GetAllBySupportId(int id) {
+            IList<IssueModel> issues = null;
+            //IssueModel issue = null;
+            using (var context = new Entities())
+            {
+
+                issues = context.Issue.Where(issueItem => issueItem.Id_Supporter == id).
+                    Select(issueItem => new IssueModel()
+                    {
+                        Report_Number = issueItem.Report_Number,
+                        Id_Supporter = issueItem.Id_Supporter.Value,
+                        Classification = issueItem.Classification,
+                        Status = issueItem.Status,
+                        Report_Time = issueItem.Report_Time,
+                        Resolution_Comment = issueItem.Resolution_Comment
+
+
+                    }).ToList<IssueModel>();
+            }
+            if (issues.Count == 0)
+            {
+                return NotFound();
+            }
+            else
+                return Json(issues);
+
+        }
+
+           
+        [HttpGet]
         [Route("api/Issue/findUserClientById/{id}")]
         public async Task<IHttpActionResult> GetUserClientByIdAsync(int id)
         {
@@ -175,7 +206,7 @@ namespace webApi_Support_Proyect.Controllers
         [Route("api/Issue/CommentClient")]
         public async Task<IHttpActionResult> PostCommentClientAsync(CommentClientModel comment)
         {
-            comment.commentTime = DateTime.Today;
+            comment.commentTime = DateTime.Now;
             string url = "http://localhost:8080/api/comment/";
             var client = new HttpClient();
             HttpResponseMessage response = await client.PostAsJsonAsync(url, comment);

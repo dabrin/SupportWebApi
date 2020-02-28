@@ -42,19 +42,18 @@
     </div>
 
     <div *ngIf="issue.Status === 'Ingresado'">
-      <br>
-      <button type="button" class="btn btn-primary"
-              (click)="updateStatus('En Progreso')">
-        Iniciar Proceso
-      </button>
-      <br>
+        <br>
+        <button type="button" class="btn btn-primary" (click)="updateStatus('En Progreso')">
+            Iniciar Proceso
+        </button>
+        <br>
     </div>
     <div *ngIf="issue.Status === 'Ingresado'">
         <div *ngIf="loading" class="alert alert-info form-group row">Porfavor espere...</div>
         <div *ngIf="error" class="alert alert-danger form-group row">{{error}}</div>
         <br>
     </div>
-    <div>
+    <div *ngIf="issue.Status !== 'Resuelto'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resolveIssueModal">
             Resolver solicitud
         </button><br>
@@ -70,7 +69,7 @@
         </ul>
     </div>
     <br>
-    <div>
+    <div *ngIf="issue.Status !== 'Resuelto'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentsModal">
             Agregar Comentario
         </button><br><br>
@@ -86,7 +85,7 @@
         </ul>
     </div>
     <br>
-    <div>
+    <div *ngIf="issue.Status !== 'Resuelto'">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNotesModal">
             Agregar Nota
         </button><br><br>

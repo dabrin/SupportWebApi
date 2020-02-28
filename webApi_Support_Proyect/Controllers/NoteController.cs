@@ -21,7 +21,7 @@ namespace webApi_Support_Proyect.Controllers
                     //Id = note.Id_Note,
                     Report_Number_Issue = note.Report_Number,
                     Description = note.Description,
-                    Note_Time = note.Note_Time
+                    Note_Time = DateTime.Now
                 });
                 ctx.SaveChanges();
             }

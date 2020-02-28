@@ -46,7 +46,7 @@ export class IssueService {
     }
 
     updateStatusIssue(reportNumber: number, val: string): Observable<any> {
-      return this.http.put(this.baseUrl + 'UpdateStatus', {reportNumber, val});
+        return this.http.put(this.baseUrl + 'UpdateStatus', { reportNumber, val });
     }
 
     getIssueList(): Observable<any> {
@@ -64,9 +64,8 @@ export class IssueService {
 
     }
 
-    resolveIssue(id: number): Observable<any> {
-
-        return null;
+    resolveIssue(val: Issue): Observable<any> {
+        return this.http.put(this.baseUrl, val);
     }
 
 
